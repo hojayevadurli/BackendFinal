@@ -12,5 +12,8 @@ namespace Final.Data
             : base(options)
         {
         }
+
+        public DbSet<Channel> Posts { get; set; }
+       
     }
 }
