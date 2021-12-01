@@ -13,7 +13,7 @@ namespace Final.Data
         public string Slug { get; set; }
         public string Description { get; set; }
 
-
+        List<Topics>Topic { get; set; }
 
     }
 }
