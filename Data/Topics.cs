@@ -10,10 +10,10 @@ namespace Final.Data
 
         //topics ARE going to have list of posts
         public int TopicID { get; set; }
-        public string TopicName { get; set; }
+        public string TopicTitle { get; set; }
         public string TopicDescription { get; set; }
 
-
-        List<Post> Posts { get; set; }
+        public Channel Channel { get; set;}
+        public List<Post> Posts { get; set; } = new();
     }
 }

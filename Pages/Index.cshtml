@@ -4,7 +4,45 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@*<div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>*@
+
+<h1><center>RUMORS</center></h1>
+
+<center><a asp-page="/Channel/AddChannel">Add a new blog post</a></center>
+
+<table>
+    <tbody>
+
+
+
+        @foreach (var item in Model.ChannelList)
+        {
+            <tr>
+                <td>
+                    <h3>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </h3>
+                </td>
+          
+        <td>
+            @if (Model.IsAdmin)
+            {
+                <a asp-page="/blog/Edit" asp-route-id="@item.ChannelId">Edit</a> <span>|</span>
+            }
+            <a asp-page="/blog/Details" asp-route-slug="@item.Slug">Details</a>
+            @if (Model.IsAdmin)
+            {
+                <span>|</span>
+                <a asp-page="/blog/Delete" asp-route-id="@item.ChannelId">Delete</a>
+            }
+        </td>
+        </tr>
+    }
+
+        </tbody>
+    </table>
+
+

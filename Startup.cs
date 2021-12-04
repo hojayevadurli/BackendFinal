@@ -51,6 +51,12 @@ namespace Final
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
+            //services.AddSingleton<ItemManager>();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsAdmin", policyBuilder =>
+                policyBuilder.RequireClaim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress", Configuration["adminEmail"]));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

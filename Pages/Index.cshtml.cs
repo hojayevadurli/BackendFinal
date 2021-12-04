@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Final.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,16 +12,23 @@ namespace Final.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly ApplicationDbContext dbContext;
+        private readonly IAuthorizationService authorizationService;
 
-        public IndexModel(ILogger<IndexModel> logger)
+
+
+        public IndexModel(ApplicationDbContext _dbContext, IAuthorizationService _authorizationService)
         {
-            _logger = logger;
+            dbContext = _dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
+            this.authorizationService = _authorizationService;
         }
 
-        public void OnGet()
-        {
+        public List<Channel> ChannelList { get; set; } = new();
+        //public IList<Topics> TopicList { get; set; }
 
-        }
+
+         public bool IsAdmin { get; set; }
+
+
     }
 }
