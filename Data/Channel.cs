@@ -7,21 +7,20 @@ using System.Threading.Tasks;
 
 namespace Final.Data
 {
-    [Keyless]
+    //[Keyless]
     public class Channel
     {
-        //[Key]
+        [Key]
         public int ChannelId { get; set; }
+        [Required]
         public string Title { get; set; }
         public string Slug { get; set; }
+        [Required]
         public string Description { get; set; }
 
-        public List<Topics> Topic { get; set; } = new();
+        public List<Topics> Topics { get; set; }
 
     }
 
-    //public class ItemManager
-    //{
-    //    public List<Channel> Channels { get; set; } = new();
-    //}
+   
 }

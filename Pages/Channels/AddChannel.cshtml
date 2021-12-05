@@ -1,0 +1,37 @@
+﻿@page
+@model Final.Pages.Channels.AddChannelModel
+
+@{
+}
+
+<div class="col-md-6 col-sm-12 mx-auto mb-5">
+    <form method="post" asp-page-handler="AddChannel">
+        <div class="mb-3 row">
+            <div class="col-sm-4 text-sm-end align-self-center">
+                <label class="form-label" asp-for="Channel.Title"></label>
+            </div>
+            <div class="col">
+                <input class="form-control" asp-for="Channel.Title" />
+                <span class="form-text" asp-validation-for="Channel.Title"></span>
+            </div>
+        </div>
+        <div class="mb-13 row">
+            <div class="col-sm-10 text-sm-end align-self-center">
+                <label class="form-label" asp-for="Channel.Description"></label>
+                <textarea asp-for=Channel.Description rows="5" cols="140"></textarea>
+            </div>
+           
+        </div>
+        <div class="row">
+            <div class="col-sm-4 text-sm-end align-self-center">
+            </div>
+            <div class="col-8">
+                <button type="submit" class="btn btn-outline-primary">Do the thing!</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-page="/Index">Back to List</a>
+</div>

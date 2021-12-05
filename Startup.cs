@@ -51,7 +51,7 @@ namespace Final
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
-            //services.AddSingleton<ItemManager>();
+            services.AddTransient<IDataRepository, DataRepository>();
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("IsAdmin", policyBuilder =>

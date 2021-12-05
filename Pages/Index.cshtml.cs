@@ -14,20 +14,31 @@ namespace Final.Pages
     {
         private readonly ApplicationDbContext dbContext;
         private readonly IAuthorizationService authorizationService;
+        private readonly IDataRepository data;
 
-
-
-        public IndexModel(ApplicationDbContext _dbContext, IAuthorizationService _authorizationService)
+        public IndexModel(ApplicationDbContext _dbContext, IAuthorizationService _authorizationService, IDataRepository data)
         {
             dbContext = _dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
             this.authorizationService = _authorizationService;
+            this.data = data;
         }
 
-        public List<Channel> ChannelList { get; set; } = new();
+        public IEnumerable<Channel> ChannelList { get; set; }
         //public IList<Topics> TopicList { get; set; }
 
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {            
 
-         public bool IsAdmin { get; set; }
+            ChannelList = await data.GetChannelListAsync();
+
+            if (ChannelList == null)
+            {
+                return NotFound();
+            }
+            return Page();
+        }
+
+        public bool IsAdmin { get; set; }
 
 
     }

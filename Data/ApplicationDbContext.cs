@@ -13,7 +13,18 @@ namespace Final.Data
         {
         }
 
-        public DbSet<Channel> Posts { get; set; }
-       
+        public DbSet<Channel> Channels { get; set; }
+        public DbSet<Topics> Topics { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comments> Comments { get; set; }
+
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Channel>()
+                .HasMany(c => c.Topics)
+                .WithOne(e => e.Channel);
+        }
     }
 }

@@ -46,31 +46,23 @@ namespace Final.Pages.Channels
     }
 
     [Authorize]
-    public class AddChanelModel : PageModel
+    public class AddChannelModel : PageModel
     {
-        //private ILogger<AddChanelModel> log;
-       //private ItemManager itemManager;
+              
         private readonly ApplicationDbContext dbContext;
+        private readonly IDataRepository dataRepository;
 
-        public AddChanelModel(ApplicationDbContext dbContext)
+        public AddChannelModel(ApplicationDbContext dbContext, IDataRepository dataRepository)
         {
             this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            //this.itemManager = itemManager;
-
+            this.dataRepository = dataRepository;
         }
-        //public void OnGet(Channel parent, Topics child)
-        //{
-
-        //    Channel = parent;
-        //    TopicName = child;
-
-        //}
-
+       
         [BindProperty]
         public Channel Channel { get; set; }
         //[BindProperty]
        // public Topics TopicName { get; set; }
-
+       
         public async Task<IActionResult> OnPostAddChannel()
         {
             Channel.Slug = Channel.Title.GenerateSlug();
@@ -78,13 +70,8 @@ namespace Final.Pages.Channels
             {
                 return Page();
             }
-            dbContext.Posts.Add(Channel);
-            await dbContext.SaveChangesAsync();
-            return RedirectToPage("/Index");
-            //log.LogInformation("Adding new Channel: {parent}", ChannelName);
-            //itemManager.Channels.Add(new Channel { Title = ChannelName }); 
-            //return RedirectToPage();
-
+            await dataRepository.AddChannelAsync(Channel);
+             return RedirectToPage("/Index");
         }
 
         //public IActionResult OnPostAddTopic()

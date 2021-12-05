@@ -11,34 +11,33 @@
 
 <h1><center>RUMORS</center></h1>
 
-<center><a asp-page="/Channel/AddChannel">Add a new blog post</a></center>
+<center><a asp-page="/Channels/AddChannel">Add a Channel</a></center>
 
 <table>
     <tbody>
 
-
-
         @foreach (var item in Model.ChannelList)
         {
-            <tr>
-                <td>
-                    <h3>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </h3>
-                </td>
-          
-        <td>
-            @if (Model.IsAdmin)
-            {
-                <a asp-page="/blog/Edit" asp-route-id="@item.ChannelId">Edit</a> <span>|</span>
-            }
-            <a asp-page="/blog/Details" asp-route-slug="@item.Slug">Details</a>
-            @if (Model.IsAdmin)
-            {
-                <span>|</span>
-                <a asp-page="/blog/Delete" asp-route-id="@item.ChannelId">Delete</a>
-            }
-        </td>
+        <tr>
+            <td>
+                <h3>
+                    <a asp-page="/Channels/Details" asp-route-slug="@item.ChannelId">@item.Title</a>
+                </h3>
+            </td>
+                
+
+            <td>
+                @if (Model.IsAdmin)
+                {
+                    <a asp-page="/Channels/Edit" asp-route-id="@item.ChannelId">Edit</a>
+                }
+
+                @if (Model.IsAdmin)
+                {
+                    <span>|</span>
+                    <a asp-page="/Channels/Delete" asp-route-id="@item.ChannelId">Delete</a>
+                }
+            </td>
         </tr>
     }
 
