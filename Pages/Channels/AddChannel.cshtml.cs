@@ -48,14 +48,17 @@ namespace Final.Pages.Channels
     [Authorize]
     public class AddChannelModel : PageModel
     {
+        //How to check if the user is admin or not ??????????
               
         private readonly ApplicationDbContext dbContext;
         private readonly IDataRepository dataRepository;
+        private readonly IAuthorizationService authorizationService;
 
-        public AddChannelModel(ApplicationDbContext dbContext, IDataRepository dataRepository)
+        public AddChannelModel(ApplicationDbContext dbContext, IDataRepository dataRepository,IAuthorizationService authorizationService)
         {
             this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             this.dataRepository = dataRepository;
+            this.authorizationService = authorizationService;
         }
        
         [BindProperty]
@@ -73,13 +76,7 @@ namespace Final.Pages.Channels
             await dataRepository.AddChannelAsync(Channel);
              return RedirectToPage("/Index");
         }
-
-        //public IActionResult OnPostAddTopic()
-        //{
-        //    log.LogInformation("Adding :{child} to this channel {parent}", TopicName, ChannelName);
-        //    itemManager.Channels.First(i => i.Title == ChannelName).Topic.Add(TopicName);
-        //    return RedirectToPage(new { parent = ChannelName });
-        //}
+              
 
 
     }
