@@ -23,12 +23,12 @@ namespace Final.Pages.Channels
 
         [BindProperty]
         public Channel Channel { get; set; }
-        public Topics TopicList { get; set; }
+        public IEnumerable<Topics> TopicsList { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
             //get a topic list
-            TopicList= await data.GetTopicListAsync(id);
+            TopicsList= await data.GetTopicListAsync(id);
             //Channel = await data.
 
 

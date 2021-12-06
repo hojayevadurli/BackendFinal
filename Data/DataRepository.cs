@@ -32,9 +32,9 @@ namespace Final.Data
             await context.SaveChangesAsync();
         }
 
-        public async Task<Topics> GetTopicListAsync(int channelId)
+        public async Task<IEnumerable<Topics>> GetTopicListAsync(int channelId)
         {
-            return await context.Topics.FirstOrDefaultAsync(m => m.Channel.ChannelId == channelId);
+            return await context.Topics.Where(m => m.Channel.ChannelId == channelId).ToListAsync();
 
         }
 

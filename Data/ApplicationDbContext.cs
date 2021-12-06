@@ -23,7 +23,7 @@ namespace Final.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Channel>()
-                .HasMany(c => c.Topics)
+                .HasMany(c => c.TopicList)
                 .WithOne(e => e.Channel);
         }
     }
