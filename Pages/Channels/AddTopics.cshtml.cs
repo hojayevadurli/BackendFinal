@@ -6,6 +6,7 @@ using Final.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 
 namespace Final.Pages.Channels
 {
@@ -23,24 +24,25 @@ namespace Final.Pages.Channels
             this.dataRepository = dataRepository;
             this.authorizationService = authorizationService;
         }
+        [BindProperty]
         public Channel Channel { get; set; }
         public Topics Topics { get; set; }
                
-        public void OnGet()
+        public void OnGet(string channelSlug)
         {
+            Channel = JsonConvert.DeserializeObject<Channel>(channelSlug);
 
         }
 
         //adding new topics to the channel
-        public IActionResult OnPostAddTopics(int channelID,Topics topics )
+        public IActionResult OnPostAddTopics(Topics topics)
         {
 
-            if (ModelState.IsValid)
-            {
-                dataRepository.AddTopicAsync(channelID, topics);               
-               
-            }
-            return Page();
+
+            dataRepository.AddTopicAsync(Channel.ChannelId, topics);
+
+
+            return RedirectToPage("/Channels/Details", new { channelId = Channel.ChannelId });
         }
 
         //public IActionResult OnPostAddChild()

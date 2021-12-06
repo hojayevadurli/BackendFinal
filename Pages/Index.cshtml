@@ -1,4 +1,6 @@
 ﻿@page
+
+@using Newtonsoft.Json
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -18,10 +20,12 @@
 
         @foreach (var item in Model.ChannelList)
         {
+            Dictionary<string, string> dictChannel =
+      new Dictionary<string, string> { { "channelSlug", JsonConvert.SerializeObject(item) } };
         <tr>
             <td>
                 <h3>
-                    <a asp-page="/Channels/Details" asp-route-slug="@item.ChannelId">@item.Title</a>
+                    <a asp-page="/Channels/Details" asp-route-slug="@item.ChannelId" asp-all-route-data="dictChannel">@item.Title</a>
                 </h3>
             </td>
                 

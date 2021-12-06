@@ -48,8 +48,7 @@ namespace Final.Pages.Channels
     [Authorize]
     public class AddChannelModel : PageModel
     {
-        //How to check if the user is admin or not ??????????
-              
+       
         private readonly ApplicationDbContext dbContext;
         private readonly IDataRepository dataRepository;
         private readonly IAuthorizationService authorizationService;
@@ -63,12 +62,12 @@ namespace Final.Pages.Channels
        
         [BindProperty]
         public Channel Channel { get; set; }
-        //[BindProperty]
-       // public Topics TopicName { get; set; }
        
         public async Task<IActionResult> OnPostAddChannel()
         {
             Channel.Slug = Channel.Title.GenerateSlug();
+
+
             if (!ModelState.IsValid)
             {
                 return Page();
