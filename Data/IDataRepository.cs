@@ -8,7 +8,7 @@ namespace Final.Data
         Task AddChannelAsync(Channel channel);
         Task<IEnumerable<Channel>> GetChannelListAsync();
         Task<Topics> GetTopicListAsync(int id);
-        Task AddTopicAsync(Topics topic);
+        Task AddTopicAsync(int channelId, Topics topic);
 
     }
 }

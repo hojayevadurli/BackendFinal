@@ -38,10 +38,14 @@ namespace Final.Data
 
         }
 
-        public async Task AddTopicAsync(Topics topic)
+        public async Task AddTopicAsync(int channelID,Topics topic)
         {
 
+            Channel channel = context.Channels.FirstOrDefault(c => c.ChannelId == channelID);
+
             context.Topics.Add(topic);
+            channel.TopicList.Append(topic);
+            context.Update(channel);
             await context.SaveChangesAsync();
         }
 

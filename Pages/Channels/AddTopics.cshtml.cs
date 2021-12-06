@@ -37,12 +37,10 @@ namespace Final.Pages.Channels
 
             if (ModelState.IsValid)
             {
-                dataRepository.AddTopicAsync(topics);               
-                return View("Details", new Topics { channelID = topics.ch });
+                dataRepository.AddTopicAsync(channelID, topics);               
+               
             }
-            dataRepository.First(i => i.ChannelID == channelID
-            ).Topic.Add(Topics));
-            return RedirectToPage(new { parent = ChannelName });
+            return Page();
         }
 
         //public IActionResult OnPostAddChild()
@@ -53,17 +51,4 @@ namespace Final.Pages.Channels
         //}
 
     }
-}
-
-[HttpPost("Posts/Details/{PostId}")]
-public async Task<IActionResult> CreateComment(int PostId, Comment comment)
-{
-    if (ModelState.IsValid)
-    {
-        _context.Add(comment);
-        await _context.SaveChangesAsync();
-
-        return View("Details", new Comment { PostId = comment.PostId });
-    }
-    return View("Posts/Details");
 }

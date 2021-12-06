@@ -18,7 +18,7 @@ namespace Final.Data
         [Required]
         public string Description { get; set; }
 
-        public List<Topics> Topics { get; set; }
+        public List<Topics> TopicList { get; set; }
 
     }
 
