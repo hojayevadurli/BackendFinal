@@ -30,7 +30,7 @@
 
     @foreach (var item in Model.Channel.TopicList)
     {
-        <a asp-page="Posts" asp-route-channelSlug="@item.Slug"><h3>@Html.DisplayFor(modelItem => item.TopicTitle)</h3></a>
+        <a asp-page="/Channels/TopicDetails" asp-route-channelSlug="@item.Slug"><h3>@Html.DisplayFor(modelItem => item.TopicTitle)</h3></a>
     }
 
 
