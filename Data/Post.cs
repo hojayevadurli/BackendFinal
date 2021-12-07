@@ -14,6 +14,7 @@ namespace Final.Data
         public string Slug { get; set; }
         public string Body { get; set; }
         public string Description { get; set; }
+        public string Author { get; set; }
         public DateTime Published { get; set; }
         public DateTime? LastEditedOn { get; internal set; } = DateTime.Now;
         public string LastEditedBy { get; set; }
