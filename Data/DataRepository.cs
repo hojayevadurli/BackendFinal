@@ -80,6 +80,11 @@ namespace Final.Data
             return await context.Channels.Include(c=>c.TopicList).FirstOrDefaultAsync(c => c.Slug == channelSlug);
         }
 
+        public async Task<Topic> GetTopicBySlugAsync(string topicSlug)
+        {
+            return await context.Topics.Include(c => c.Posts).FirstOrDefaultAsync(c => c.Slug == topicSlug);
+        }
+
         //public async Task AddPostAsync(Post post
         //{
         //    post.PostedOn = DateTime.Now;

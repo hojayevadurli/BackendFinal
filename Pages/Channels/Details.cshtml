@@ -17,14 +17,14 @@
     <h4> @Html.DisplayFor(modelItem => Model.Channel.Description)</h4>
 </div>
 <div class=" text-left">
-    @*<div class=" text-right">
-        @if (Model.IsAdmin)
-        {
-            <a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>
-        }
-    </div>*@
+    <div class=" text-right">
+        @*@if (Model.IsAdmin)
+        {*@
+            @*<a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>*@
+            <a asp-page="/Channels/AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>
+        @*}*@
+    </div>
 
-    <a asp-page="/Channels/AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>
     <h2>Topics: </h2>
 
 

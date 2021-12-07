@@ -12,10 +12,14 @@ namespace Final.Data
         public int Id { get; set; }
         public string Title { get; set; }
         public string Slug { get; set; }
+        public string Body { get; set; }
         public string Description { get; set; }
+        public DateTime Published { get; set; }
+        public DateTime? LastEditedOn { get; internal set; } = DateTime.Now;
+        public string LastEditedBy { get; set; }
         public Topic Topic { get; set; }
+        public int TopicId { get; set; }
         public List<Comment> Comments { get; set; } = new();
-        // list of comments
-
+      
     }
 }
