@@ -52,12 +52,15 @@ namespace Final.Pages.Channels
         private readonly ApplicationDbContext dbContext;
         private readonly IDataRepository dataRepository;
         private readonly IAuthorizationService authorizationService;
+        private readonly ILogger<AddChannelModel>logger;
 
-        public AddChannelModel(ApplicationDbContext dbContext, IDataRepository dataRepository,IAuthorizationService authorizationService)
+        public AddChannelModel(ApplicationDbContext dbContext, IDataRepository dataRepository,IAuthorizationService authorizationService, ILogger<AddChannelModel> logger)
         {
             this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             this.dataRepository = dataRepository;
             this.authorizationService = authorizationService;
+            this.logger = logger;
+            
         }
        
         [BindProperty]
@@ -73,6 +76,7 @@ namespace Final.Pages.Channels
                 return Page();
             }
             await dataRepository.AddChannelAsync(Channel);
+            logger.LogInformation("New Channel created by: {adminName} {Channel} ", User.Identity.Name, Channel.Title);
              return RedirectToPage("/Index");
         }
               

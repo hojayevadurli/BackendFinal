@@ -6,6 +6,7 @@ using Final.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Final.Pages.Channels
@@ -17,12 +18,14 @@ namespace Final.Pages.Channels
         private readonly ApplicationDbContext dbContext;
         private readonly IDataRepository dataRepository;
         private readonly IAuthorizationService authorizationService;
+        private readonly ILogger<AddTopicsModel> logger;
 
-        public AddTopicsModel(ApplicationDbContext dbContext, IDataRepository dataRepository, IAuthorizationService authorizationService)
+        public AddTopicsModel(ApplicationDbContext dbContext, IDataRepository dataRepository, IAuthorizationService authorizationService,ILogger<AddTopicsModel> logger)
         {
             this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             this.dataRepository = dataRepository;
             this.authorizationService = authorizationService;
+            this.logger = logger;
         }
        
         public Channel Channel { get; set; }
@@ -54,9 +57,10 @@ namespace Final.Pages.Channels
             Topic.ChannelId = channelId;
              
             await dataRepository.AddTopicAsync(channelId, Topic);
+            logger.LogInformation("New Topic created by: {adminName} {Topic} ", User.Identity.Name, Topic.TopicTitle);
 
             //dataRepository.AddTopicAsync(Channel.ChannelId, topic);
-            return RedirectToPage("Details", new { channelSlug = slug});
+            return RedirectToPage("Details", new { slug = slug});
         }
 
         

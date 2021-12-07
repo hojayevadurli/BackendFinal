@@ -21,7 +21,7 @@
         @*@if (Model.IsAdmin)
         {*@
             @*<a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>*@
-            <a asp-page="/Channels/AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>
+            <a asp-page="/Channels/AddTopics" asp-route-slug="@Model.Channel.Slug">Add A Topic</a>
         @*}*@
     </div>
 

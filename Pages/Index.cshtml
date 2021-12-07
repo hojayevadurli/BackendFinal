@@ -20,15 +20,18 @@
 
         @foreach (var item in Model.ChannelList)
         {
-          
+
         <tr>
             <td>
-                <h3>
-                    <a asp-page="/Channels/Details" asp-route-slug="@item.Slug">@item.Title</a>
-                </h3>
-            </td>
-                
+                @if (Model.IsAdmin)
+                {
+                    <h3>
+                        <a asp-page="/Channels/Details" asp-route-slug="@item.Slug">@item.Title</a>
+                    </h3>
 
+                }
+
+            </td>
             <td>
                 @if (Model.IsAdmin)
                 {
