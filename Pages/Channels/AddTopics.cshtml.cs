@@ -44,7 +44,7 @@ namespace Final.Pages.Channels
         }
 
         //adding new topics to the channel
-        public IActionResult OnPostAddTopics(int channelId, string channelSlug)
+        public async Task<IActionResult> OnPostAddTopics(int channelId, string channelSlug)
         {
             if (!ModelState.IsValid)
             {
@@ -53,7 +53,7 @@ namespace Final.Pages.Channels
             Topic.Slug = Topic.TopicTitle.GenerateSlug();
             Topic.ChannelId = channelId;
              
-            dataRepository.AddTopicAsync(channelId, Topic);
+            await dataRepository.AddTopicAsync(channelId, Topic);
 
             //dataRepository.AddTopicAsync(Channel.ChannelId, topic);
             return RedirectToPage("Details", new { channelSlug = channelSlug});
