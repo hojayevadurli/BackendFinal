@@ -24,33 +24,41 @@ namespace Final.Pages.Channels
             this.dataRepository = dataRepository;
             this.authorizationService = authorizationService;
         }
-        [BindProperty]
+       
         public Channel Channel { get; set; }
-        public Topics Topics { get; set; }
+        [BindProperty]
+        public Topics Topic { get; set; }
                
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync(string channelSlug)
         {
-            //Channel = JsonConvert.DeserializeObject<Channel>(channelSlug);
+           
+            Channel = await dataRepository.GetChannelBySlugAsync(channelSlug);
+            if (channelSlug == null)
+            {
+                return NotFound();
+
+                //Channel = JsonConvert.DeserializeObject<Channel>(channelSlug);
+            }
+            return Page();
 
         }
 
         //adding new topics to the channel
-        public IActionResult OnPostAddTopics(string channelSlug,Topics topics)
+        public IActionResult OnPostAddTopics(int channelId, Topics topic)
         {
+            Topic.Slug = Topic.TopicTitle.GenerateSlug();
+           // Topic.ChannelsId = channelId;
+             
+            if (Channel !=null|| ModelState.IsValid)
+            {
+                //This channel id might crash
+                dataRepository.AddTopicAsync(channelId, topic);
+            }
 
-
-            dataRepository.AddTopicAsync(channelSlug, topics);
-
-
-            return RedirectToPage("/Channels/Details", new { channelId = Channel.ChannelId });
+            dataRepository.AddTopicAsync(Channel.ChannelId, topic);
+            return RedirectToPage("/Channels/Details", new { channelID = Channel.ChannelId });
         }
 
-        //public IActionResult OnPostAddChild()
-        //{
-        //    log.LogInformation("Adding {child} as a child to {parent}", ChildName, ParentName);
-        //    itemManager.TopLevelItems.First(i => i.Name == ParentName).Children.Add(ChildName);
-        //    return RedirectToPage(new { parent = ParentName });
-        //}
-
+        
     }
 }

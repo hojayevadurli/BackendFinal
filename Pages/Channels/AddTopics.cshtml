@@ -1,9 +1,33 @@
-﻿@page
+﻿@page "/AddTopics {channelSlug}"
 @model Final.Pages.Channels.AddTopicsModel
 @{
 }
 
-@*<center><a asp-page="/Channels/Details">Add a Topic</a></center>*@
+
+
+    
+    @*<div class="col-md-6 col-sm-12 mx-auto mb-5">
+        <form method="post" asp-page-handler="/AddTopics">
+            <input type="hidden" name="channelID" value="@Model.Channel.ChannelId" />
+            <div class="mb-3 row">
+                <div class="col-sm-4 text-sm-end align-self-center">
+                    <label class="form-label" asp-for="Topic.TopicTitle"></label>
+                </div>
+                <div class="col">
+                    <input class="form-control" asp-for="Topic.TopicTitle" />
+                    <span class="form-text" asp-validation-for="Topic.TopicTitle"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 text-sm-end align-self-center">
+                </div>
+                <div class="col-8">
+                    <button type="submit" class="btn btn-outline-primary">Add Child to @Model.Channel.Title</button>
+                </div>
+            </div>
+        </form>
+    </div>*@
+
 
 
 <div class="col-md-6 col-sm-12 mx-auto mb-5">
@@ -12,17 +36,17 @@
         <input type="hidden" asp-for="Channel.Title" />
         <div class="mb-3 row">
             <div class="col-sm-4 text-sm-end align-self-center">
-                <label class="form-label" asp-for="Topics.TopicTitle"></label>
+                <label class="form-label" asp-for="Topic.TopicTitle"></label>
             </div>
             <div class="col">
-                <input class="form-control" asp-for="Topics.TopicTitle" />
-                <span class="form-text" asp-validation-for="Topics.TopicTitle"></span>
+                <input class="form-control" asp-for="Topic.TopicTitle" />
+                <span class="form-text" asp-validation-for="Topic.TopicTitle"></span>
             </div>
         </div>
         <div class="mb-13 row">
             <div class="col-sm-10 text-sm-end align-self-center">
-                <label class="form-label" asp-for="Topics.TopicDescription"></label>
-                <textarea asp-for=Topics.TopicDescription rows="5" cols="140"></textarea>
+                <label class="form-label" asp-for="Topic.TopicDescription"></label>
+                <textarea asp-for=Topic.TopicDescription rows="5" cols="140"></textarea>
             </div>
 
         </div>
@@ -37,5 +61,5 @@
 </div>
 
 <div>
-    <a asp-page="/Index">Back to List</a>
+    <a asp-page="/Details">Back to List</a>
 </div>

@@ -35,16 +35,20 @@ namespace Final.Data
         }
 
         
-        public async Task AddTopicAsync(string slug,Topics topic)
+        public async Task AddTopicAsync(int channelId, Topics topic)
         {
+            var channel = await context.Channels.FindAsync(channelId);
+            //if(channel== null)
+            //context.Channels.First(i => i.ChannelId == channelId).TopicList.Append(topic);
 
-            Channel channel = context.Channels.FirstOrDefault(c => c.Slug == slug);
-            topic.Channel = channel;
-
+            //Channel channel = context.Channels.FirstOrDefault(c => c.Slug == slug);
+            
             context.Topics.Add(topic);
             channel.TopicList.Append(topic);
             context.Update(channel);
             await context.SaveChangesAsync();
+
+          
         }
 
         public async Task<Channel> GetChannelBySlugAsync(string channelSlug)
