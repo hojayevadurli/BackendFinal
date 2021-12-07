@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Final.Data
 {
-    //[Keyless]
+   
     public class Channel
     {
         [Key]
@@ -18,7 +18,7 @@ namespace Final.Data
         [Required]
         public string Description { get; set; }
 
-        public IEnumerable<Topics> TopicList { get; set; }
+        public List<Topics> TopicList { get; set; } = new();
 
     }
 

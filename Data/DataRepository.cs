@@ -37,26 +37,41 @@ namespace Final.Data
         
         public async Task AddTopicAsync(int channelId, Topics topic)
         {
-            var channel = await context.Channels.FindAsync(channelId);
+            //var channel = await context.Channels.FindAsync(channelId);
             //if(channel== null)
-            //context.Channels.First(i => i.ChannelId == channelId).TopicList.Append(topic);
+           
 
-            //Channel channel = context.Channels.FirstOrDefault(c => c.Slug == slug);
-            
+            Channel channel = context.Channels.FirstOrDefault(c => c.ChannelId == channelId);
+            topic.Channel = channel;
             context.Topics.Add(topic);
-            channel.TopicList.Append(topic);
+           // context.Channels.First(i => i.ChannelId == channelId).TopicList.Add(topic);
+            channel.TopicList.Add(topic);
             context.Update(channel);
             await context.SaveChangesAsync();
 
-          
+            //Channel channel = context.Channels.FirstOrDefault(c => c.ChannelId == channelId);
+            //topic.Channel = channel;;
+
+            //context.Topics.Add(topic);
+            //channel.TopicList.Append(topic);
+            ////channel.TopicList.Add(topic);
+            //context.Update(channel);
+            //await context.SaveChangesAsync();
+
+
         }
+        public async Task<IEnumerable<Topics>>GetTopicByChannelSlugAsync(string channelSlug)
+        {
+            return await context.Topics.Where(t => t.Channel.Slug == channelSlug).ToListAsync();
+        }
+
 
         public async Task<Channel> GetChannelBySlugAsync(string channelSlug)
         {
             return await context.Channels.Include(c=>c.TopicList).FirstOrDefaultAsync(c => c.Slug == channelSlug);
         }
 
-        //public async Task AddPostAsync(Post post)
+        //public async Task AddPostAsync(Post post
         //{
         //    post.PostedOn = DateTime.Now;
         //    context.Posts.Add(post);

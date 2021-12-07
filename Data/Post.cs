@@ -14,7 +14,7 @@ namespace Final.Data
         public string Slug { get; set; }
         public string Description { get; set; }
         public Topics Topic { get; set; }
-        public List<Comments> Comment { get; set; }
+        public List<Comments> Comment { get; set; } = new();
         // list of comments
 
     }

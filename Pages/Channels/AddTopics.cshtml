@@ -33,6 +33,7 @@
 <div class="col-md-6 col-sm-12 mx-auto mb-5">
     <form method="post" asp-page-handler="AddTopics">
         <input type="hidden" asp-for="Channel.ChannelId" />
+        <input type="hidden" asp-for="Channel.Slug" />
         <input type="hidden" asp-for="Channel.Title" />
         <div class="mb-3 row">
             <div class="col-sm-4 text-sm-end align-self-center">

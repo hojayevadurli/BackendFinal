@@ -29,6 +29,7 @@ namespace Final.Pages.Channels
 
         [BindProperty]
         public Channel Channel { get; set; }
+        [BindProperty]
         public IEnumerable<Topics> TopicsList { get; set; }
         public bool IsAdmin { get; set; }
         public async Task<IActionResult> OnGetAsync(string channelSlug)
@@ -52,7 +53,7 @@ namespace Final.Pages.Channels
 
             
             TopicsList = Channel.TopicList;
-
+            TopicsList= await data.GetTopicByChannelSlugAsync(channelSlug);
 
 
             return Page();

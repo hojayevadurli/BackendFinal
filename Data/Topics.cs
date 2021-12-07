@@ -18,7 +18,7 @@ namespace Final.Data
         public string TopicDescription { get; set; }
 
         public Channel Channel { get; set;}
-        public int ChannelsId { get; set; }
-        public IEnumerable<Post> Posts { get; set; }
+       public int ChannelsId { get; set; }
+        public List<Post> Posts { get; set; }
     }
 }
