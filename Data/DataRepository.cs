@@ -52,9 +52,9 @@ namespace Final.Data
                  context.Topics.Add(topic);
                 await context.SaveChangesAsync();
             }
-            catch(Exception ex)
+            catch(Exception _ex)
             {
-                
+                throw;
             }
 
 
