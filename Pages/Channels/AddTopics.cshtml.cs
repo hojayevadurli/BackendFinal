@@ -28,18 +28,18 @@ namespace Final.Pages.Channels
         public Channel Channel { get; set; }
         public Topics Topics { get; set; }
                
-        public void OnGet(string channelSlug)
+        public void OnGet()
         {
-            Channel = JsonConvert.DeserializeObject<Channel>(channelSlug);
+            //Channel = JsonConvert.DeserializeObject<Channel>(channelSlug);
 
         }
 
         //adding new topics to the channel
-        public IActionResult OnPostAddTopics(Topics topics)
+        public IActionResult OnPostAddTopics(string channelSlug,Topics topics)
         {
 
 
-            dataRepository.AddTopicAsync(Channel.ChannelId, topics);
+            dataRepository.AddTopicAsync(channelSlug, topics);
 
 
             return RedirectToPage("/Channels/Details", new { channelId = Channel.ChannelId });

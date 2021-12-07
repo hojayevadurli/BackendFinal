@@ -28,30 +28,28 @@ namespace Final.Data
         public async Task AddChannelAsync(Channel channel)
         {
 
-            context.Channels.Include `;
+            context.Channels.Add(channel);
             await context.SaveChangesAsync();
 
-            Channel = await dbContext.Channels
-.Include(p => p.TopicsList)
-.FirstOrDefaultAsync(m => m.Slug.ToLower() == slug.ToLower());
-        }
-
-        public async Task<IEnumerable<Topics>> GetTopicListAsync(string slug)
-        {
-            return await context.Topics.Where(m => m.Channel.ChannelId == channelId).ToListAsync();
 
         }
 
-        public async Task AddTopicAsync(int channelID,Topics topic)
+        
+        public async Task AddTopicAsync(string slug,Topics topic)
         {
 
-            Channel channel = context.Channels.FirstOrDefault(c => c.ChannelId == channelID);
+            Channel channel = context.Channels.FirstOrDefault(c => c.Slug == slug);
             topic.Channel = channel;
 
             context.Topics.Add(topic);
-            channel.TopicList.Add(topic);
+            channel.TopicList.Append(topic);
             context.Update(channel);
             await context.SaveChangesAsync();
+        }
+
+        public async Task<Channel> GetChannelBySlugAsync(string channelSlug)
+        {
+            return await context.Channels.Include(c=>c.TopicList).FirstOrDefaultAsync(c => c.Slug == channelSlug);
         }
 
         //public async Task AddPostAsync(Post post)

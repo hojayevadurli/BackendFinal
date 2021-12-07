@@ -42,25 +42,17 @@ namespace Final.Pages.Channels
 
                 //Channel = JsonConvert.DeserializeObject<Channel>(channelSlug);
             }
-
-            TopicsList = await data.GetTopicListAsync(channelSlug);
-
-
-            ////get a topic list
-            //if(channelId == null)
-            //{
+            Channel = await data.GetChannelBySlugAsync(channelSlug);
 
 
-            //}
-            //else
-            //{
-            //    TopicsList = await data.GetTopicListAsync(channelId);
-            //}
-
-            if (TopicsList == null)
+            if (Channel == null)
             {
                 return NotFound();
             }
+
+            
+            TopicsList = Channel.TopicList;
+
 
 
             return Page();

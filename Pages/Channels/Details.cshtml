@@ -1,78 +1,37 @@
-﻿@page
+﻿@page "/Channels/Details/{channelSlug}"
 @using Newtonsoft.Json
 
 @model Final.Pages.Channels.DetailsModel
 
 @{
+}
+
+@{
     Layout = null;
 }
 
+<div class="text-md-left">
+    <h1 class="display-4">@Html.DisplayFor(modelItem => Model.Channel.Title)</h1>
+</div>
+<div>
+    <h4> @Html.DisplayFor(modelItem => Model.Channel.Description)</h4>
+</div>
+<div class=" text-left">
+    @*<div class=" text-right">
+        @if (Model.IsAdmin)
+        {
+            <a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>
+        }
+    </div>*@
 
-    @*@<center><a asp-page="/Channels/AddTopics">Add a Topic</a></center>*@
-
-
-    <table>
-        <tbody>
-            @{ Dictionary
-                 <string, string>
-                     dictChannel = new Dictionary<string, string>
-                         { { "channelSlug", JsonConvert.SerializeObject(Model.Channel) } }; }
-
-            <tr>
-                <td>
-                    <h3>
-                        Channel Name=  @Html.DisplayFor(modelItem => Model.Channel.Title)
-                    </h3>
-                </td>
-
-                <td>
-                    <h3>
-                        Channel Description= @Html.DisplayFor(modelItem => Model.Channel.Description)
-                    </h3>
-                </td>
-                <div class=" text-right">
-
-                    <h2>Topics: </h2>
-                    @if (Model.TopicsList != null)
-                    {
-                        @foreach (var item in Model.TopicsList)
-                        {
-                            <a asp-page="Posts" asp-route-slug="@item.Slug"><h3>@Html.DisplayFor(modelItem => item.TopicTitle)</h3></a>
-                        }
-                    }
-
-                </div>
-                  @*@if (Model.IsAdmin)
-                  {*@
-                    <a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug" asp-all-route-data="dictChannel">Add A Topic</a>
-                    @*}*@
-                </div>
-
-            </tr>
+    <a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>
+    <h2>Topics: </h2>
 
 
-        </tbody>
-    </table>
+    @foreach (var item in Model.Channel.TopicList)
+    {
+        <a asp-page="Posts" asp-route-channelSlug="@item.Slug"><h3>@Html.DisplayFor(modelItem => item.TopicTitle)</h3></a>
+    }
 
 
-
-        <!--<div class="text-md-left">
-            <h1 class="display-4">@Html.DisplayFor(modelItem => Model.Channel.Title)</h1>
-        </div>
-        <div>
-            <h4> @Html.DisplayFor(modelItem => Model.Channel.Description)</h4>
-        </div>
-        <div class=" text-left">
-            <div class=" text-right">
-                @if (Model.IsAdmin)
-                {
-                    <a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>
-                }
-            </div>-->
-        @*<h2>Topics: </h2>
-            @foreach (var item in Model.Channel.TopicList)
-            {
-                <a asp-page="Posts" asp-route-slug="@item.Slug"><h3>@Html.DisplayFor(modelItem => item.TopicTitle)</h3></a>
-            }*@
-        <!--</div>-->
-
+</div>

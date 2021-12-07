@@ -20,12 +20,11 @@
 
         @foreach (var item in Model.ChannelList)
         {
-            Dictionary<string, string> dictChannel =
-      new Dictionary<string, string> { { "channelSlug", JsonConvert.SerializeObject(item) } };
+          
         <tr>
             <td>
                 <h3>
-                    <a asp-page="/Channels/Details" asp-route-slug="@item.ChannelId" asp-all-route-data="dictChannel">@item.Title</a>
+                    <a asp-page="/Channels/Details" asp-route-channelSlug="@item.Slug">@item.Title</a>
                 </h3>
             </td>
                 
@@ -33,13 +32,13 @@
             <td>
                 @if (Model.IsAdmin)
                 {
-                    <a asp-page="/Channels/Edit" asp-route-id="@item.ChannelId">Edit</a>
+                    <a asp-page="/Channels/Edit" asp-route-channelSlug="@item.Slug">Edit</a>
                 }
 
                 @if (Model.IsAdmin)
                 {
                     <span>|</span>
-                    <a asp-page="/Channels/Delete" asp-route-id="@item.ChannelId">Delete</a>
+                    <a asp-page="/Channels/Delete" asp-route-channelSlug="@item.Slug">Delete</a>
                 }
             </td>
         </tr>
