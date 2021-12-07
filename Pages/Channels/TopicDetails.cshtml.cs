@@ -24,20 +24,22 @@ namespace Final.Pages.Channels
             this.data = data;
         }
 
-        [BindProperty]
+       
         public Topic Topic { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string topicSlug)
+        public async Task<IActionResult> OnGetAsync(string slug)
         {
-            if (topicSlug == null)
+
+
+            if (slug == null)
             {
                 return NotFound();
             }
 
+            Topic = await data.GetTopicBySlugAsync(slug);
             //Topic = await _context.Topics
             //    .Include(t => t.Channel).FirstOrDefaultAsync(m => m.TopicID == id);
 
-            Topic = await data.GetTopicBySlugAsync(topicSlug);
 
             if (Topic == null)
             {

@@ -32,18 +32,18 @@ namespace Final.Pages.Channels
       // [BindProperty]
        // public IEnumerable<Topics> TopicsList { get; set; }
         public bool IsAdmin { get; set; }
-        public async Task<IActionResult> OnGetAsync(string channelSlug)
+        public async Task<IActionResult> OnGetAsync(string slug)
         {
             var authReasult= await authorizationService.AuthorizeAsync(User, AuthorizationPolicies.IsAdmin);
 
             IsAdmin = authReasult.Succeeded;
-            if (channelSlug == null)
+            if (slug == null)
             {
                 return NotFound();
 
                 //Channel = JsonConvert.DeserializeObject<Channel>(channelSlug);
             }
-            Channel = await data.GetChannelBySlugAsync(channelSlug);
+            Channel = await data.GetChannelBySlugAsync(slug);
 
 
             if (Channel == null)

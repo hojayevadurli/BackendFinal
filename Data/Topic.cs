@@ -19,6 +19,6 @@ namespace Final.Data
 
         public Channel Channel { get; set;}
        public int ChannelId { get; set; }
-        public List<Post> Posts { get; set; }
+        public List<Post> Posts { get; set; } = new();
     }
 }

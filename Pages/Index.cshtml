@@ -24,7 +24,7 @@
         <tr>
             <td>
                 <h3>
-                    <a asp-page="/Channels/Details" asp-route-channelSlug="@item.Slug">@item.Title</a>
+                    <a asp-page="/Channels/Details" asp-route-slug="@item.Slug">@item.Title</a>
                 </h3>
             </td>
                 
@@ -32,13 +32,13 @@
             <td>
                 @if (Model.IsAdmin)
                 {
-                    <a asp-page="/Channels/Edit" asp-route-channelSlug="@item.Slug">Edit</a>
+                    <a asp-page="/Channels/Edit" asp-route-slug="@item.Slug">Edit</a>
                 }
 
                 @if (Model.IsAdmin)
                 {
                     <span>|</span>
-                    <a asp-page="/Channels/Delete" asp-route-channelSlug="@item.Slug">Delete</a>
+                    <a asp-page="/Channels/Delete" asp-route-slug="@item.Slug">Delete</a>
                 }
             </td>
         </tr>

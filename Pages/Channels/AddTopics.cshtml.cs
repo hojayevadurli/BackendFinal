@@ -29,11 +29,11 @@ namespace Final.Pages.Channels
         [BindProperty]
         public Topic Topic { get; set; }
                
-        public async Task<IActionResult> OnGetAsync(string channelSlug)
+        public async Task<IActionResult> OnGetAsync(string slug)
         {
            
-            Channel = await dataRepository.GetChannelBySlugAsync(channelSlug);
-            if (channelSlug == null)
+            Channel = await dataRepository.GetChannelBySlugAsync(slug);
+            if (slug == null)
             {
                 return NotFound();
 
@@ -44,7 +44,7 @@ namespace Final.Pages.Channels
         }
 
         //adding new topics to the channel
-        public async Task<IActionResult> OnPostAddTopics(int channelId, string channelSlug)
+        public async Task<IActionResult> OnPostAddTopics(int channelId, string slug)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace Final.Pages.Channels
             await dataRepository.AddTopicAsync(channelId, Topic);
 
             //dataRepository.AddTopicAsync(Channel.ChannelId, topic);
-            return RedirectToPage("Details", new { channelSlug = channelSlug});
+            return RedirectToPage("Details", new { channelSlug = slug});
         }
 
         
