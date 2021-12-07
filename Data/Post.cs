@@ -13,8 +13,8 @@ namespace Final.Data
         public string Title { get; set; }
         public string Slug { get; set; }
         public string Description { get; set; }
-        public Topics Topic { get; set; }
-        public List<Comments> Comment { get; set; } = new();
+        public Topic Topic { get; set; }
+        public List<Comment> Comments { get; set; } = new();
         // list of comments
 
     }

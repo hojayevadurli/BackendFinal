@@ -1,4 +1,4 @@
-﻿@page "/AddTopics {channelSlug}"
+﻿@page "/AddTopics/{channelSlug}"
 @model Final.Pages.Channels.AddTopicsModel
 @{
 }
@@ -32,9 +32,9 @@
 
 <div class="col-md-6 col-sm-12 mx-auto mb-5">
     <form method="post" asp-page-handler="AddTopics">
-        <input type="hidden" asp-for="Channel.ChannelId" />
-        <input type="hidden" asp-for="Channel.Slug" />
-        <input type="hidden" asp-for="Channel.Title" />
+        <input type="hidden" value="@Model.Channel.ChannelId" name="channelId" />
+        <input type="hidden" value="@Model.Channel.Slug" name="channelSlug" />
+       @*<input type="hidden" asp-for="Channel.Title" />*@
         <div class="mb-3 row">
             <div class="col-sm-4 text-sm-end align-self-center">
                 <label class="form-label" asp-for="Topic.TopicTitle"></label>

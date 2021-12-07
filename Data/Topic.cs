@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Final.Data
 {
-    public class Topics
+    public class Topic
     {
 
         //topics ARE going to have list of posts
@@ -18,7 +18,7 @@ namespace Final.Data
         public string TopicDescription { get; set; }
 
         public Channel Channel { get; set;}
-       public int ChannelsId { get; set; }
+       public int ChannelId { get; set; }
         public List<Post> Posts { get; set; }
     }
 }

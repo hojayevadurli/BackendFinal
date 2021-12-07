@@ -3,15 +3,17 @@ using System;
 using Final.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Final.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211207174949_NewKey5")]
+    partial class NewKey5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,7 @@ namespace Final.Migrations
                     b.ToTable("Channels");
                 });
 
-            modelBuilder.Entity("Final.Data.Comment", b =>
+            modelBuilder.Entity("Final.Data.Comments", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,9 +53,6 @@ namespace Final.Migrations
 
                     b.Property<int?>("PostId")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -88,7 +87,7 @@ namespace Final.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("Final.Data.Topic", b =>
+            modelBuilder.Entity("Final.Data.Topics", b =>
                 {
                     b.Property<int>("TopicID")
                         .ValueGeneratedOnAdd()
@@ -312,23 +311,23 @@ namespace Final.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Final.Data.Comment", b =>
+            modelBuilder.Entity("Final.Data.Comments", b =>
                 {
                     b.HasOne("Final.Data.Post", null)
-                        .WithMany("Comments")
+                        .WithMany("Comment")
                         .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("Final.Data.Post", b =>
                 {
-                    b.HasOne("Final.Data.Topic", "Topic")
+                    b.HasOne("Final.Data.Topics", "Topic")
                         .WithMany("Posts")
                         .HasForeignKey("TopicID");
 
                     b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("Final.Data.Topic", b =>
+            modelBuilder.Entity("Final.Data.Topics", b =>
                 {
                     b.HasOne("Final.Data.Channel", "Channel")
                         .WithMany("TopicList")
@@ -397,10 +396,10 @@ namespace Final.Migrations
 
             modelBuilder.Entity("Final.Data.Post", b =>
                 {
-                    b.Navigation("Comments");
+                    b.Navigation("Comment");
                 });
 
-            modelBuilder.Entity("Final.Data.Topic", b =>
+            modelBuilder.Entity("Final.Data.Topics", b =>
                 {
                     b.Navigation("Posts");
                 });

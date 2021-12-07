@@ -24,10 +24,10 @@ namespace Final.Pages.Channels
             this.dataRepository = dataRepository;
             this.authorizationService = authorizationService;
         }
-       [BindProperty]
+       
         public Channel Channel { get; set; }
         [BindProperty]
-        public Topics Topic { get; set; }
+        public Topic Topic { get; set; }
                
         public async Task<IActionResult> OnGetAsync(string channelSlug)
         {
@@ -44,19 +44,19 @@ namespace Final.Pages.Channels
         }
 
         //adding new topics to the channel
-        public IActionResult OnPostAddTopics(Topics topic)
+        public IActionResult OnPostAddTopics(int channelId, string channelSlug)
         {
-            Topic.Slug = Topic.TopicTitle.GenerateSlug();
-           // Topic.ChannelsId = channelId;
-             
-            if (Channel !=null|| ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                //This channel id might crash
-                dataRepository.AddTopicAsync(Channel.ChannelId, topic);
+                return Page();
             }
+            Topic.Slug = Topic.TopicTitle.GenerateSlug();
+            Topic.ChannelId = channelId;
+             
+            dataRepository.AddTopicAsync(channelId, Topic);
 
             //dataRepository.AddTopicAsync(Channel.ChannelId, topic);
-            return RedirectToPage("Details", new { channelSlug = Channel.Slug });
+            return RedirectToPage("Details", new { channelSlug = channelSlug});
         }
 
         

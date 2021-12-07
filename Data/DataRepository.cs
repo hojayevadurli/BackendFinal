@@ -35,19 +35,28 @@ namespace Final.Data
         }
 
         
-        public async Task AddTopicAsync(int channelId, Topics topic)
+        public async Task AddTopicAsync(int channelId, Topic topic)
         {
             //var channel = await context.Channels.FindAsync(channelId);
             //if(channel== null)
            
 
-            Channel channel = context.Channels.FirstOrDefault(c => c.ChannelId == channelId);
-            topic.Channel = channel;
-            context.Topics.Add(topic);
+           // Channel channel = context.Channels.FirstOrDefault(c => c.ChannelId == channelId);
+           // topic.Channel = channel;
            // context.Channels.First(i => i.ChannelId == channelId).TopicList.Add(topic);
-            channel.TopicList.Add(topic);
-            context.Update(channel);
-            await context.SaveChangesAsync();
+            //channel.TopicList.Add(topic);
+            //context.Update(channel);
+            
+            try
+            {
+                 context.Topics.Add(topic);
+                await context.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                
+            }
+
 
             //Channel channel = context.Channels.FirstOrDefault(c => c.ChannelId == channelId);
             //topic.Channel = channel;;
@@ -60,7 +69,7 @@ namespace Final.Data
 
 
         }
-        public async Task<IEnumerable<Topics>>GetTopicByChannelSlugAsync(string channelSlug)
+        public async Task<IEnumerable<Topic>>GetTopicByChannelSlugAsync(string channelSlug)
         {
             return await context.Topics.Where(t => t.Channel.Slug == channelSlug).ToListAsync();
         }
