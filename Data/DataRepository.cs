@@ -11,10 +11,7 @@ namespace Final.Data
 
         private readonly ApplicationDbContext context;
 
-        //Task<IEnumerable<Post>> IRepository.PostList => throw new NotImplementedException();
-
-
-        public DataRepository(ApplicationDbContext context)
+       public DataRepository(ApplicationDbContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
@@ -37,15 +34,6 @@ namespace Final.Data
         
         public async Task AddTopicAsync(int channelId, Topic topic)
         {
-            //var channel = await context.Channels.FindAsync(channelId);
-            //if(channel== null)
-           
-
-           // Channel channel = context.Channels.FirstOrDefault(c => c.ChannelId == channelId);
-           // topic.Channel = channel;
-           // context.Channels.First(i => i.ChannelId == channelId).TopicList.Add(topic);
-            //channel.TopicList.Add(topic);
-            //context.Update(channel);
             
             try
             {
@@ -58,28 +46,27 @@ namespace Final.Data
             }
 
 
-            //Channel channel = context.Channels.FirstOrDefault(c => c.ChannelId == channelId);
-            //topic.Channel = channel;;
-
-            //context.Topics.Add(topic);
-            //channel.TopicList.Append(topic);
-            ////channel.TopicList.Add(topic);
-            //context.Update(channel);
-            //await context.SaveChangesAsync();
-
-
         }
         public async Task<IEnumerable<Topic>>GetTopicByChannelSlugAsync(string channelSlug)
         {
             return await context.Topics.Where(t => t.Channel.Slug == channelSlug).ToListAsync();
         }
 
-
         public async Task<Channel> GetChannelBySlugAsync(string channelSlug)
         {
             return await context.Channels.Include(c=>c.TopicList).FirstOrDefaultAsync(c => c.Slug == channelSlug);
         }
 
+
+        public  async Task RemoveChannelAsync(string slug, Channel channel)
+        {
+
+           Channel ch= await context.Channels.FirstOrDefaultAsync(t=>t.Slug == slug);
+            await context.Channels.Remove(ch).ReloadAsync();
+            // await context.Channels.Remove(channel);
+            await context.SaveChangesAsync();           
+            
+        }
         public async Task<Topic> GetTopicBySlugAsync(string topicSlug)
         {
             return await context.Topics.Include(c => c.Posts).FirstOrDefaultAsync(c => c.Slug == topicSlug);
@@ -98,9 +85,11 @@ namespace Final.Data
             {
                 throw;
             }
-            //context.Posts.Add(post);
-            //await context.SaveChangesAsync();
+          
         }
+
+
+
 
         //public async Task EditPostAsync(Post post)
         //{
