@@ -62,10 +62,40 @@ namespace Final.Data
         {
 
            Channel ch= await context.Channels.FirstOrDefaultAsync(t=>t.Slug == slug);
-            await context.Channels.Remove(ch).ReloadAsync();
+            context.Channels.Remove(ch);
+           // await context.Update(ch);
             // await context.Channels.Remove(channel);
             await context.SaveChangesAsync();           
             
+        }
+
+        public async Task EditChannelAsync(string slug)
+        {
+
+            Channel ch = await context.Channels.FirstOrDefaultAsync(t => t.Slug == slug);
+            context.Channels.Attach(ch).State = EntityState.Modified;
+
+            try
+            {
+                await context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                //if (!ChannelExists(ch.Slug))
+                //{
+                //    return NotFound();
+                //}
+                //else
+                //{
+                //    throw;
+                //}
+            }
+
+        }
+
+        private bool ChannelExists(string slug)
+        {
+            return context.Channels.Any(e => e.Slug == slug);
         }
         public async Task<Topic> GetTopicBySlugAsync(string topicSlug)
         {

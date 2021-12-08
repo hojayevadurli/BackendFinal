@@ -51,7 +51,7 @@ namespace Final.Pages.Channels
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string slug)
+        public async Task<IActionResult> OnPostDeleteChannel(string slug)
         {
             if (slug == null)
             {

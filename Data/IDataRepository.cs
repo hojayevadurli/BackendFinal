@@ -16,5 +16,7 @@ namespace Final.Data
         Task AddPostAsync(int topicId, Post post);
 
         Task RemoveChannelAsync(string topicSlug, Channel channel);
+
+        Task EditChannelAsync(string slug);
     }
 }
