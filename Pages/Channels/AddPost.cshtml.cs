@@ -27,6 +27,7 @@ namespace Final.Pages.Channels
             this.logger = logger;
         }
 
+        [BindProperty]
         public Topic Topic { get; set; }
 
         [BindProperty]
@@ -61,7 +62,7 @@ namespace Final.Pages.Channels
             Post.TopicId = topicId;
 
             await dataRepository.AddPostAsync(topicId, Post);
-            logger.LogInformation("New Topic created by: {adminName} {Post} ", User.Identity.Name, Post.Title);
+            logger.LogInformation("New Post created by: {adminName} {Post} ", User.Identity.Name, Post.Title);
 
 
             return RedirectToPage("TopicDetails", new { slug = slug });
