@@ -13,7 +13,7 @@
         @*@if (Model.IsAdmin)
             {*@
         @*<a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>*@
-        <a asp-page="/Channels/AddPosts" asp-route-slug="@Model.Topic.Slug">Add A Post</a>
+        <a asp-page="/Channels/AddPost" asp-route-slug="@Model.Topic.Slug">Add A Post</a>
         @*}*@
     </div>
 
@@ -22,7 +22,7 @@
 
     @foreach (var item in Model.Topic.Posts)
     {
-        <a asp-page="Posts" asp-route-slug="@item.Slug"><h3>@Html.DisplayFor(modelItem => item.Title)</h3></a>
+        <a asp-page="AddPost" asp-route-slug="@item.Slug"><h3>@Html.DisplayFor(modelItem => item.Title)</h3></a>
     }
 
 

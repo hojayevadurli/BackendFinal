@@ -6,39 +6,65 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Final.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace Final.Pages.Channels
 {
+    [Authorize]
     public class AddPostModel : PageModel
     {
-        private readonly Final.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext dbContext;
+        private readonly IDataRepository dataRepository;
+        private readonly IAuthorizationService authorizationService;
+        private readonly ILogger<AddPostModel> logger;
 
-        public AddPostModel(Final.Data.ApplicationDbContext context)
+        public AddPostModel(ApplicationDbContext dbContext, IDataRepository dataRepository, IAuthorizationService authorizationService, ILogger<AddPostModel> logger)
         {
-            _context = context;
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.dataRepository = dataRepository;
+            this.authorizationService = authorizationService;
+            this.logger = logger;
         }
 
-        public IActionResult OnGet()
-        {
-        ViewData["TopicId"] = new SelectList(_context.Topics, "TopicID", "TopicID");
-            return Page();
-        }
+        public Topic Topic { get; set; }
 
         [BindProperty]
         public Post Post { get; set; }
 
+        public async Task<IActionResult> OnGetAsync(string slug)
+        {
+            Topic = await dataRepository.GetTopicBySlugAsync(slug);
+
+            if (slug == null)
+            {
+                return NotFound();
+            }
+
+            //Topic = await _context.Topics
+            //    .Include(t => t.Channel).FirstOrDefaultAsync(m => m.TopicID == id);
+
+
+            return Page();
+
+        }
+
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAddPostsAsync(int topicId, string slug)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Posts.Add(Post);
-            await _context.SaveChangesAsync();
+            Post.Slug = Post.Title.GenerateSlug();
+            Post.TopicId = topicId;
 
-            return RedirectToPage("./Index");
+            await dataRepository.AddPostAsync(topicId, Post);
+            logger.LogInformation("New Topic created by: {adminName} {Post} ", User.Identity.Name, Post.Title);
+
+
+            return RedirectToPage("TopicDetails", new { slug = slug });
         }
     }
 }

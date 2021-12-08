@@ -13,6 +13,6 @@ namespace Final.Data
         Task<IEnumerable<Topic>> GetTopicByChannelSlugAsync(string channelSlug);
 
         Task<Topic> GetTopicBySlugAsync(string channelSlug);
-
+        Task AddPostAsync(int topicId, Post post);
     }
 }

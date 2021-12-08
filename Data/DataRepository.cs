@@ -85,12 +85,22 @@ namespace Final.Data
             return await context.Topics.Include(c => c.Posts).FirstOrDefaultAsync(c => c.Slug == topicSlug);
         }
 
-        //public async Task AddPostAsync(Post post
-        //{
-        //    post.PostedOn = DateTime.Now;
-        //    context.Posts.Add(post);
-        //    await context.SaveChangesAsync();
-        //}
+        public async Task AddPostAsync(int topicId, Post post)
+        {
+            post.Published = DateTime.Now;
+
+            try
+            {
+                context.Posts.Add(post);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception _ex)
+            {
+                throw;
+            }
+            //context.Posts.Add(post);
+            //await context.SaveChangesAsync();
+        }
 
         //public async Task EditPostAsync(Post post)
         //{
