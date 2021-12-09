@@ -144,6 +144,17 @@ namespace Final.Data
                 .FirstOrDefaultAsync(r => r.Slug == slug);
         }
 
+        public async Task RemovePostAsync(string slug)
+        {
+
+            Post p = await context.Posts.FirstOrDefaultAsync(t => t.Slug == slug);
+            context.Posts.Remove(p);
+            // await context.Update(ch);
+            // await context.Channels.Remove(channel);
+            await context.SaveChangesAsync();
+            
+
+        }
 
 
         //public async Task<Category> GetCategoryAsync(int categoryID)
@@ -151,11 +162,12 @@ namespace Final.Data
         //    return await Task.Run(() => context.Categories.Include(c => c.PostCategories).ThenInclude(pc => pc.Post).First(r => r.CategoryId == categoryID));
         //}
 
-        //public async Task AddCommentAsync(Comment comment)
-        //{
-        //    context.Comments.Add(comment);
-        //    await context.SaveChangesAsync();
-        //}
+        public async Task AddCommentAsync(Comment comment)
+        {
+            
+            context.Comments.Add(comment);
+            await context.SaveChangesAsync();
+        }
 
         //public async Task DeleteCommentAsync(Comment comment)
         //{

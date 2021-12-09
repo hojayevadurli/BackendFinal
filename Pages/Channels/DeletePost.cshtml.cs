@@ -6,31 +6,43 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Final.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace Final.Pages.Channels
 {
     public class DeletePostModel : PageModel
     {
-        private readonly Final.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext dbContext;
+        private readonly IDataRepository dataRepository;
+        private readonly IAuthorizationService authorizationService;
+        private readonly ILogger<DeletePostModel> logger;
 
-        public DeletePostModel(Final.Data.ApplicationDbContext context)
+        public DeletePostModel(ApplicationDbContext dbContext, IDataRepository dataRepository, IAuthorizationService authorizationService, ILogger<DeletePostModel> logger)
         {
-            _context = context;
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.dataRepository = dataRepository;
+            this.authorizationService = authorizationService;
+            this.logger = logger;
         }
 
         [BindProperty]
         public Post Post { get; set; }
+        public bool IsAdmin { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string slug)
         {
-            if (id == null)
+            var authReasult = await authorizationService.AuthorizeAsync(User, AuthorizationPolicies.IsAdmin);
+
+            IsAdmin = authReasult.Succeeded;
+            if (slug == null)
             {
                 return NotFound();
+
+                //Channel = JsonConvert.DeserializeObject<Channel>(channelSlug);
             }
-
-            Post = await _context.Posts
-                .Include(p => p.Topic).FirstOrDefaultAsync(m => m.Id == id);
-
+            Post = await dataRepository.GetPostAsync(slug);
+           
             if (Post == null)
             {
                 return NotFound();
@@ -38,22 +50,28 @@ namespace Final.Pages.Channels
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostDeletePost(string slug)
         {
-            if (id == null)
+            if (slug == null)
             {
                 return NotFound();
             }
 
-            Post = await _context.Posts.FindAsync(id);
+            //make find function in datarepository
+
+            //await dataRepository.GetPostAsync(slug);
+            // Channel = await _context.Channels.FindAsync(id);
 
             if (Post != null)
             {
-                _context.Posts.Remove(Post);
-                await _context.SaveChangesAsync();
+
+                await dataRepository.RemovePostAsync(slug);
+                //_context.Channels.Remove(Channel);
+                //await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            logger.LogInformation("Post deleted by: {adminName} {Post} ", User.Identity.Name, Post.Title);
+            return RedirectToPage("TopicDetails", new { slug = slug });
         }
     }
 }

@@ -16,11 +16,11 @@ namespace Final.Data
         public string Text { get; set; }
 
         public string Author { get; set; }
-        public DateTime Posted { get; set; }
+        public DateTime AddedOn { get; set; }
         public Post Post { get; set; }
-        public int PostId { get; set; }
+        public int ParentId { get; set; }
 
-
+        public List<Comment> ChildComments { get; set; }
 
 
     }

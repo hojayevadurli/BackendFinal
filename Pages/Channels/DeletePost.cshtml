@@ -1,85 +1,41 @@
-﻿@page
+﻿@page "/Channels/DeletePost/{slug}"
 @model Final.Pages.Channels.DeletePostModel
 
-@{
-    Layout = null;
-}
 
-<!DOCTYPE html>
+<div class="col-md-6 col-sm-12 mx-auto mb-5">
+    <form method="post" asp-page-handler="DeletePost">
+        <input type="hidden" value="@Model.Post.Slug" name="slug" />
+        <div class="text-md-left">
+            <h2 class="display-4">@Html.DisplayFor(modelItem => Model.Post.Title)</h2>
+        </div>
+        <div>
+            <h4> @Html.DisplayFor(modelItem => Model.Post.Body)</h4>
+        </div>
+        <div>
+            <h4> @Html.DisplayFor(modelItem => Model.Post.Description)</h4>
+        </div>
+        <div>
+            <h4> @Html.DisplayFor(modelItem => Model.Post.Author)</h4>
+        </div>
+        <div>
+            <label asp-for="Post.Published" class="control-label"></label>
+            <h4> @Html.DisplayFor(modelItem => Model.Post.Published)</h4>
+        </div>
+        <div>
+            <label asp-for="Post.LastEditedOn" class="control-label"></label>
+            <h4> @Html.DisplayFor(modelItem => Model.Post.LastEditedOn)</h4>
+        </div>
+            <div class="row">
+                <div class="col-sm-4 text-sm-end align-self-center">
+                </div>
+                <div class="col-8">
+                    <button type="submit" class="btn btn-outline-primary">Do the thing!</button>
+                </div>
+            </div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>DeletePost</title>
-</head>
-<body>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Post.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Post.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Post.Slug)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Post.Slug)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Post.Body)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Post.Body)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Post.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Post.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Post.Author)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Post.Author)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Post.Published)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Post.Published)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Post.LastEditedOn)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Post.LastEditedOn)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Post.LastEditedBy)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Post.LastEditedBy)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Post.Topic)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Post.Topic.TopicID)
-        </dd>
-    </dl>
-    
-    <form method="post">
-        <input type="hidden" asp-for="Post.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
     </form>
 </div>
-</body>
-</html>
+
+<div>
+    <a asp-page="/TopicDetails">Back to List</a>
+</div>

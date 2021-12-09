@@ -6,6 +6,7 @@ using Final.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Final.Pages.Channels
 {
@@ -24,8 +25,10 @@ namespace Final.Pages.Channels
             this.data = data;
         }
 
-
+        
         public Post Post { get; set; }
+        public List<Comment> Comments { get; set; }
+
 
         public async Task<IActionResult> OnGetAsync(string slug)
         {
@@ -37,9 +40,16 @@ namespace Final.Pages.Channels
             }
 
             Post = await data.GetPostAsync(slug);
-            //Topic = await _context.Topics
-            //    .Include(t => t.Channel).FirstOrDefaultAsync(m => m.TopicID == id);
 
+            //if (slug != null)
+            //{
+            //    Post = context.Posts.Single(p => p.Slug == slug);
+            //    Comments = await Post.Comments.Where(c => c.Post == null);
+            //    //replies = BlogPost.Comments.Where(c => c.CommentParent == null);
+            //}
+
+            Comments= await context.Comments.Include(s=>s.ChildComments)
+                .ThenInclude(s=>s.ChildComments).OrderBy(s => s.AddedOn).ToListAsync();
 
             if (Post == null)
             {
@@ -47,6 +57,29 @@ namespace Final.Pages.Channels
             }
             return Page();
         }
+
+
+        public async Task<IActionResult> OnPostAsync(Comment comment, int ParentSuggestionId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            comment.AddedOn = DateTime.Now;
+            if (ParentSuggestionId > 0)
+            {
+                comment.ParentId = ParentSuggestionId;
+            }
+
+           await data.AddCommentAsync(comment);
+            //context.Comments.Add(comment);
+            //await context.SaveChangesAsync();
+
+            return RedirectToPage();
+        }
+
         
+
     }
 }

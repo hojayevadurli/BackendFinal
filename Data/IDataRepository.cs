@@ -21,5 +21,8 @@ namespace Final.Data
 
         Task<Post> GetPostAsync(string slug);
         Task EditPostAsync(string slug, Post post);
+        Task RemovePostAsync(string slug);
+
+        Task AddCommentAsync(Comment comment);
     }
 }

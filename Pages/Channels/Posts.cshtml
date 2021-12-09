@@ -1,9 +1,9 @@
-﻿@page "/Posts/{slug}"
+﻿@page "/Channel/Posts/{slug}"
 @model Final.Pages.Channels.PostsModel
 @{
 }
 
-<h1>Posts</h1>
+<h1>Post</h1>
 
 <div class="text-md-left">
     <h2 class="display-4">@Html.DisplayFor(modelItem => Model.Post.Title)</h2>
@@ -23,15 +23,27 @@
 </div>
 <div>
     <label asp-for="Post.LastEditedOn" class="control-label"></label>
-    <h4> @Html.DisplayFor(modelItem => Model.Post.Published)</h4>
+    <h4> @Html.DisplayFor(modelItem => Model.Post.LastEditedOn)</h4>
 </div>
 
-<div class=" text-left">
+<div class=" align-text-bottom">
     <div class=" text-right">
         @*@if (Model.IsAdmin)
         {*@
         @*<a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>*@
+
+        <h1 class="mt-2">Comments</h1>
+
+        @foreach (var comment in Model.Comments.Where(s => s.ParentId == null))
+        {
+            <partial name="DisplaySuggestionPartial" model="comment" />
+        }
+
+        <h3>Add a new top-level suggestion</h3>
+        @*  <partial name="AddCommentPartialModel" model="Model.AddSuggestionModel" /> *@
+
         <a asp-page="/Channels/Posts" asp-route-slug="@Model.Post.Slug">Add A comment</a>
+
         <a asp-page="/Channels/EditPost" asp-route-slug="@Model.Post.Slug">Edit</a>
         <a asp-page="/Channels/DeletePost" asp-route-slug="@Model.Post.Slug">Delete</a>
 
@@ -42,9 +54,7 @@
 
             @if (Model.IsAdmin)
             {
-                <span>|</span>
-
-            }
+                }
         </td>*@
         @*}*@
     </div>
