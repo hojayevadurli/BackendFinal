@@ -20,5 +20,6 @@ namespace Final.Data
         Task EditChannelAsync(string slug);
 
         Task<Post> GetPostAsync(string slug);
+        Task EditPostAsync(string slug, Post post);
     }
 }

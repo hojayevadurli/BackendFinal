@@ -14,12 +14,38 @@
 <div>
     <h4> @Html.DisplayFor(modelItem => Model.Post.Description)</h4>
 </div>
+<div>
+    <h4> @Html.DisplayFor(modelItem => Model.Post.Author)</h4>
+</div>
+<div>
+    <label asp-for="Post.Published" class="control-label"></label>
+    <h4> @Html.DisplayFor(modelItem => Model.Post.Published)</h4>
+</div>
+<div>
+    <label asp-for="Post.LastEditedOn" class="control-label"></label>
+    <h4> @Html.DisplayFor(modelItem => Model.Post.Published)</h4>
+</div>
+
 <div class=" text-left">
     <div class=" text-right">
         @*@if (Model.IsAdmin)
-            {*@
+        {*@
         @*<a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>*@
         <a asp-page="/Channels/Posts" asp-route-slug="@Model.Post.Slug">Add A comment</a>
+        <a asp-page="/Channels/EditPost" asp-route-slug="@Model.Post.Slug">Edit</a>
+        <a asp-page="/Channels/DeletePost" asp-route-slug="@Model.Post.Slug">Delete</a>
+
+        @*<td>
+            @if (Model.IsAdmin)
+            {
+            }
+
+            @if (Model.IsAdmin)
+            {
+                <span>|</span>
+
+            }
+        </td>*@
         @*}*@
     </div>
 

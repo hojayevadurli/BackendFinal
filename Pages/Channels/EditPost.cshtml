@@ -1,0 +1,118 @@
+﻿@page "/Channels/EditPost/{slug}"
+@model Final.Pages.Channels.EditPostModel
+
+
+<div class="col-md-6 col-sm-12 mx-auto mb-5">
+    <form method="post" asp-page-handler="EditPost">
+        <input type="hidden" value="@Model.Post.Slug" name="slug" />
+        <div class="mb-3 row">
+            <div class="col-sm-4 text-sm-end align-self-center">
+                <label class="form-label" asp-for="Post.Title"></label>
+            </div>
+            <div class="col">
+                <input class="form-control" asp-for="Post.Title" />
+                <span class="form-text" asp-validation-for="Post.Title"></span>
+            </div>
+        </div>
+        <div class="mb-13 row">
+            <div class="col-sm-10 text-sm-end align-self-center">
+                <label class="form-label" asp-for="Post.Body"></label>
+                <textarea asp-for=Post.Body rows="5" cols="140"></textarea>
+            </div>
+
+        </div>
+        <div class="mb-13 row">
+            <div class="col-sm-10 text-sm-end align-self-center">
+                <label class="form-label" asp-for="Post.Description"></label>
+                <textarea asp-for=Post.Description rows="5" cols="140"></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 text-sm-end align-self-center">
+                </div>
+                <div class="col-8">
+                    <button type="submit" class="btn btn-outline-primary">Do the thing!</button>
+                </div>
+            </div>
+    </form>
+</div>
+
+
+@*@{
+        Layout = null;
+    }*@
+
+@*<!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>EditPost</title>
+    </head>
+    <body>
+
+    <h4>Post</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Post.Id" />
+                <div class="form-group">
+                    <label asp-for="Post.Title" class="control-label"></label>
+                    <input asp-for="Post.Title" class="form-control" />
+                    <span asp-validation-for="Post.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Post.Slug" class="control-label"></label>
+                    <input asp-for="Post.Slug" class="form-control" />
+                    <span asp-validation-for="Post.Slug" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Post.Body" class="control-label"></label>
+                    <input asp-for="Post.Body" class="form-control" />
+                    <span asp-validation-for="Post.Body" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Post.Description" class="control-label"></label>
+                    <input asp-for="Post.Description" class="form-control" />
+                    <span asp-validation-for="Post.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+
+                    <input asp-for="Post.Author" class="form-control" />
+                    <span asp-validation-for="Post.Author" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Post.Published" class="control-label"></label>
+                    <input asp-for="Post.Published" class="form-control" />
+                    <span asp-validation-for="Post.Published" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Post.LastEditedOn" class="control-label"></label>
+                    <input asp-for="Post.LastEditedOn" class="form-control" />
+                    <span asp-validation-for="Post.LastEditedOn" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Post.LastEditedBy" class="control-label"></label>
+                    <input asp-for="Post.LastEditedBy" class="form-control" />
+                    <span asp-validation-for="Post.LastEditedBy" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Post.TopicId" class="control-label"></label>
+                    <select asp-for="Post.TopicId" class="form-control" asp-items="ViewBag.TopicId"></select>
+                    <span asp-validation-for="Post.TopicId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-page="/Posts">Back to List</a>
+    </div>
+
+    </body>
+    </html>*@

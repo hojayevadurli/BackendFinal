@@ -81,14 +81,7 @@ namespace Final.Data
             }
             catch (DbUpdateConcurrencyException)
             {
-                //if (!ChannelExists(ch.Slug))
-                //{
-                //    return NotFound();
-                //}
-                //else
-                //{
-                //    throw;
-                //}
+                
             }
 
         }
@@ -104,7 +97,7 @@ namespace Final.Data
 
         public async Task AddPostAsync(int topicId, Post post)
         {
-            post.Published = DateTime.Now;
+           // post.Published = DateTime.Now;
 
             try
             {
@@ -118,16 +111,28 @@ namespace Final.Data
           
         }
 
+        public async Task EditPostAsync(string slug, Post post)
+        {
+            Post p= await context.Posts.FirstOrDefaultAsync(t => t.Slug == slug);
 
+            p.Title = post.Title;
+            p.Body = post.Body;
+            p.Description = post.Description;
+            
+            context.Posts.Attach(p).State = EntityState.Modified;
 
-
-        //public async Task EditPostAsync(Post post)
-        //{
-        //    post.EditedOn = DateTime.Now;
-        //    context.Update(post);
-        //    await context.SaveChangesAsync();
-        //    //await Task.Run(() => context.Posts. = post);
-        //}
+            try
+            {
+                await context.SaveChangesAsync();
+            p.LastEditedOn = DateTime.Now;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+               
+            }
+           
+        }
 
         public async Task<Post> GetPostAsync(string slug)
         {
@@ -138,6 +143,8 @@ namespace Final.Data
                 //.ThenInclude(pc => pc.Category)
                 .FirstOrDefaultAsync(r => r.Slug == slug);
         }
+
+
 
         //public async Task<Category> GetCategoryAsync(int categoryID)
         //{

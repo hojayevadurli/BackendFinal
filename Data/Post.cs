@@ -15,8 +15,8 @@ namespace Final.Data
         public string Body { get; set; }
         public string Description { get; set; }
         public string Author { get; set; }
-        public DateTime Published { get; set; }
-        public DateTime? LastEditedOn { get; internal set; } = DateTime.Now;
+        public DateTime Published { get; set; }= DateTime.Now;
+        public DateTime? LastEditedOn { get; internal set; }
         public string LastEditedBy { get; set; }
         public Topic Topic { get; set; }
         public int TopicId { get; set; }
