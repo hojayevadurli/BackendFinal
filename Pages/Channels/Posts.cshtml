@@ -34,29 +34,19 @@
 
         <h1 class="mt-2">Comments</h1>
 
-        @foreach (var comment in Model.Comments.Where(s => s.ParentId == null))
+        @foreach (var comment in Model.Comments.Where(s => s.ParentId == 0))
         {
-            <partial name="DisplaySuggestionPartial" model="comment" />
+            <partial name="DisplayCommentPartial" model="comment" />
         }
 
-        <h3>Add a new top-level suggestion</h3>
-        @*  <partial name="AddCommentPartialModel" model="Model.AddSuggestionModel" /> *@
+          <partial name="AddCommentPartial" model="Model.AddCommentModel" /> 
 
-        <a asp-page="/Channels/Posts" asp-route-slug="@Model.Post.Slug">Add A comment</a>
+        @*<a asp-page="/Channels/Posts" asp-route-slug="@Model.Post.Slug">Add A comment</a>
 
         <a asp-page="/Channels/EditPost" asp-route-slug="@Model.Post.Slug">Edit</a>
-        <a asp-page="/Channels/DeletePost" asp-route-slug="@Model.Post.Slug">Delete</a>
+        <a asp-page="/Channels/DeletePost" asp-route-slug="@Model.Post.Slug">Delete</a>*@
 
-        @*<td>
-            @if (Model.IsAdmin)
-            {
-            }
-
-            @if (Model.IsAdmin)
-            {
-                }
-        </td>*@
-        @*}*@
+       
     </div>
 
     @*<h2>Topics: </h2>

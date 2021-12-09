@@ -41,15 +41,15 @@ namespace Final.Pages.Channels
 
             Post = await data.GetPostAsync(slug);
 
-            //if (slug != null)
-            //{
-            //    Post = context.Posts.Single(p => p.Slug == slug);
-            //    Comments = await Post.Comments.Where(c => c.Post == null);
-            //    //replies = BlogPost.Comments.Where(c => c.CommentParent == null);
-            //}
+           
+            Comments= await context.Comments
+                .Include(s=>s.ChildComments)
+                .ThenInclude(s=>s.ChildComments)
+                .OrderBy(s => s.AddedOn)
+                .ToListAsync();
 
-            Comments= await context.Comments.Include(s=>s.ChildComments)
-                .ThenInclude(s=>s.ChildComments).OrderBy(s => s.AddedOn).ToListAsync();
+            AddCommentModel = new AddCommentPartialModel();
+            AddCommentModel.ParentPostId = Post.Id;
 
             if (Post == null)
             {
@@ -78,6 +78,8 @@ namespace Final.Pages.Channels
 
             return RedirectToPage();
         }
+
+        public AddCommentPartialModel AddCommentModel { get; set; } = new();
 
         
 
