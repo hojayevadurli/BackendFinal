@@ -1,4 +1,35 @@
-﻿@page
+﻿@page "/Posts/{slug}"
 @model Final.Pages.Channels.PostsModel
 @{
 }
+
+<h1>Posts</h1>
+
+<div class="text-md-left">
+    <h2 class="display-4">@Html.DisplayFor(modelItem => Model.Post.Title)</h2>
+</div>
+<div>
+    <h4> @Html.DisplayFor(modelItem => Model.Post.Body)</h4>
+</div>
+<div>
+    <h4> @Html.DisplayFor(modelItem => Model.Post.Description)</h4>
+</div>
+<div class=" text-left">
+    <div class=" text-right">
+        @*@if (Model.IsAdmin)
+            {*@
+        @*<a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>*@
+        <a asp-page="/Channels/Posts" asp-route-slug="@Model.Post.Slug">Add A comment</a>
+        @*}*@
+    </div>
+
+    @*<h2>Topics: </h2>
+
+
+    @foreach (var item in Model.Post.Comments)
+    {
+        <a asp-page="Posts" asp-route-slug="@item.Slug"><h3>@Html.DisplayFor(modelItem => item.Title)</h3></a>
+    }*@
+
+
+</div>

@@ -129,15 +129,15 @@ namespace Final.Data
         //    //await Task.Run(() => context.Posts. = post);
         //}
 
-        //public async Task<Post> GetPostAsync(int postID)
-        //{
-        //    //var postlist = await EntityFrameworkQueryableExtensions.ToListAsync(context.Posts);
-        //    //return postlist.Find(x=>x.ID.Equals(postID));
-        //    return await context.Posts.Include(r => r.Comments)
-        //        .Include(p => p.PostCategories)
-        //        .ThenInclude(pc => pc.Category)
-        //        .FirstOrDefaultAsync(r => r.ID == postID);
-        //}
+        public async Task<Post> GetPostAsync(string slug)
+        {
+            //var postlist = await EntityFrameworkQueryableExtensions.ToListAsync(context.Posts);
+            //return postlist.Find(x=>x.ID.Equals(postID));
+            return await context.Posts.Include(r => r.Comments)
+                //.Include(p => p.PostCategories)
+                //.ThenInclude(pc => pc.Category)
+                .FirstOrDefaultAsync(r => r.Slug == slug);
+        }
 
         //public async Task<Category> GetCategoryAsync(int categoryID)
         //{
