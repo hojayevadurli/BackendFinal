@@ -15,10 +15,7 @@ namespace Final.Pages.Channels
 
         public int ParentCommentID { get; set; }
         public int ParentPostId { get; set; }
-        public AddCommentPartialModel()
-        {
-
-        }
+      
        
         public void OnGet()
         {

@@ -26,8 +26,10 @@ namespace Final.Pages.Channels
         }
 
         
+        [BindProperty]
         public Post Post { get; set; }
         public List<Comment> Comments { get; set; }
+        public AddCommentPartialModel AddCommentModel { get; set; } = new();
 
 
         public async Task<IActionResult> OnGetAsync(string slug)
@@ -45,6 +47,7 @@ namespace Final.Pages.Channels
             Comments= await context.Comments
                 .Include(s=>s.ChildComments)
                 .ThenInclude(s=>s.ChildComments)
+                .Where(c=>c.PostId ==Post.Id)
                 .OrderBy(s => s.AddedOn)
                 .ToListAsync();
 
@@ -69,7 +72,7 @@ namespace Final.Pages.Channels
             comment.AddedOn = DateTime.Now;
             if (ParentSuggestionId > 0)
             {
-                comment.ParentId = ParentSuggestionId;
+                comment.PostId = ParentSuggestionId;
             }
 
            await data.AddCommentAsync(comment);
@@ -79,7 +82,6 @@ namespace Final.Pages.Channels
             return RedirectToPage();
         }
 
-        public AddCommentPartialModel AddCommentModel { get; set; } = new();
 
         
 

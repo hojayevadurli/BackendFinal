@@ -63,7 +63,7 @@ namespace Final.Pages.Channels
             dataRepository.EditChannelAsync(slug);            
           
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Index");
         }
 
        
