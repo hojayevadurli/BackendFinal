@@ -1,6 +1,7 @@
 ﻿
 @model Final.Data.Comment
 @{
+    var addcommentPartial = new AddCommentPartialModel() { ParentCommentID = Model.Id };
 }
 
 <div class=" border p-1 pe-0">
@@ -21,10 +22,9 @@
                 </div>
             }
         </div>
-       @*<partial name="AddCommentPartial" model="new AddCommentPartialModel(Model.Id)" />*@
+       <partial name="AddCommentPartial" model="addcommentPartial" />
     </div>
 </div>
 
 
 <h2> @Model.Text</h2>
-<h3>I am Durli</h3>

@@ -13,7 +13,7 @@ namespace Final.Pages.Channels
 
         public Comment Comment { get; set; }
 
-        public int ParentCommentID { get; set; }
+        public int? ParentCommentID { get; set; }
         public int ParentPostId { get; set; }
       
        

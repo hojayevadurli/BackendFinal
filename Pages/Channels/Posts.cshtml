@@ -34,7 +34,7 @@
 
         <h1 class="mt-2">Comments</h1>
 
-        @foreach (var comment in Model.Comments)
+        @foreach (var comment in Model.ChildComments)
         {
             <partial name="DisplayCommentPartial" model="comment" />
         }

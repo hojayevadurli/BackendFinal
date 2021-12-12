@@ -28,7 +28,9 @@ namespace Final.Pages.Channels
         
         [BindProperty]
         public Post Post { get; set; }
-        public List<Comment> Comments { get; set; }
+        [BindProperty]
+        public List<Comment> ChildComments { get; set; }
+       
         public AddCommentPartialModel AddCommentModel { get; set; } = new();
 
 
@@ -43,17 +45,20 @@ namespace Final.Pages.Channels
 
             Post = await data.GetPostAsync(slug);
 
-           
-            Comments= await context.Comments
+
+            ChildComments = await context.Comments
                 .Include(s=>s.ChildComments)
                 .ThenInclude(s=>s.ChildComments)
-                .Where(c=>c.PostId ==Post.Id)
+                .ThenInclude(s => s.ChildComments)
+                .ThenInclude(s => s.ChildComments)
+                .Where(c=>c.PostId ==Post.Id)                
                 .OrderBy(s => s.AddedOn)
                 .ToListAsync();
 
             AddCommentModel = new AddCommentPartialModel();
             AddCommentModel.ParentPostId = Post.Id;
-
+          
+            
             if (Post == null)
             {
                 return NotFound();
@@ -62,28 +67,39 @@ namespace Final.Pages.Channels
         }
 
 
-        public async Task<IActionResult> OnPostAsync(Comment comment, int ParentSuggestionId)
+        public async Task<IActionResult> OnPostAsync(Comment comment, int? ParentSuggestionId, int? commentID)
         {
-            if (!ModelState.IsValid)
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
+            if (((ParentSuggestionId ?? 0) == 0 && (commentID ?? 0)==0 || comment.Text == null))
             {
-                return Page();
+                return RedirectToPage();
             }
-
             comment.AddedOn = DateTime.Now;
             if (ParentSuggestionId > 0)
             {
                 comment.PostId = ParentSuggestionId;
             }
+            else
+            {
+                comment.CommentId = commentID;
+            }
 
            await data.AddCommentAsync(comment);
-            //context.Comments.Add(comment);
-            //await context.SaveChangesAsync();
+            
 
             return RedirectToPage();
         }
 
+        public DisplayCommentPartialModel CreateDisplayCommentModel(Comment comment)
+        {
+            var model = new DisplayCommentPartialModel();
+            model.Comment=comment ;
+            return model;
+        }
 
-        
 
     }
 }
