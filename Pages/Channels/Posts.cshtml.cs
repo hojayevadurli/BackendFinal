@@ -30,13 +30,14 @@ namespace Final.Pages.Channels
         public Post Post { get; set; }
         [BindProperty]
         public List<Comment> ChildComments { get; set; }
-       
+        public bool IsAdmin { get; set; }
         public AddCommentPartialModel AddCommentModel { get; set; } = new();
 
 
         public async Task<IActionResult> OnGetAsync(string slug)
         {
-
+            var authorizeAdmin = await authorizationService.AuthorizeAsync(User, AuthorizationPolicies.IsAdmin);
+            IsAdmin = authorizeAdmin.Succeeded;
 
             if (slug == null)
             {

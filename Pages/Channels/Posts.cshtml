@@ -28,9 +28,6 @@
 
 <div class=" align-text-bottom">
     <div class=" text-right">
-        @*@if (Model.IsAdmin)
-        {*@
-        @*<a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>*@
 
         <h1 class="mt-2">Comments</h1>
 
@@ -41,12 +38,19 @@
 
         <partial name="AddCommentPartial" model="Model.AddCommentModel" />
 
-    
 
-        <a asp-page="/Channels/DeletePost" asp-route-slug="@Model.Post.Slug">Delete</a>
-        <a asp-page="/Channels/EditPost" asp-route-slug="@Model.Post.Slug">Edit</a>
+        @if (Model.IsAdmin)
+        {
+            <a asp-page="/Channels/DeletePost" asp-route-slug="@Model.Post.Slug">DeletePost</a>
+        }
 
+        @if (Model.IsAdmin)
+        {
+            <a asp-page="/Channels/EditPost" asp-route-slug="@Model.Post.Slug">EditPost</a>
 
+        }
+
+       
     </div>
 
     @*<h2>Topics: </h2>

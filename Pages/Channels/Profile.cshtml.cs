@@ -28,10 +28,10 @@ namespace Final.Pages.Channels
             this.dataRepository = dataRepository;
             this.authorizationService = authorizationService;
         }
-        public async Task OnGet()
+        public async Task OnGet(string slug)
         {
             Name = User.Identity.Name;
-            var profileInfo = dbContext.Users.FirstOrDefault(p => p.Name == User.Identity.Name);
+            var profileInfo = dbContext.Users.FirstOrDefault(p => p.Name == slug);
             if(profileInfo!=null)
             {
                 PathToAvatar = Path.Combine(PictureFolder);
