@@ -157,11 +157,6 @@ namespace Final.Data
         }
 
 
-        //public async Task<Category> GetCategoryAsync(int categoryID)
-        //{
-        //    return await Task.Run(() => context.Categories.Include(c => c.PostCategories).ThenInclude(pc => pc.Post).First(r => r.CategoryId == categoryID));
-        //}
-
         public async Task AddCommentAsync(Comment comment)
         {
             
@@ -177,40 +172,7 @@ namespace Final.Data
         //    await context.SaveChangesAsync();
         //}
 
-        //public async Task AddCategoryAsync(Category category, int postId)
-        //{
-
-        //    var tempCat = await EntityFrameworkQueryableExtensions.FirstOrDefaultAsync(context.Categories, c => c.CategoryName == category.CategoryName);
-
-
-        //    if (tempCat == null)
-        //    {
-        //        tempCat = new Category { CategoryName = category.CategoryName };
-        //        context.Categories.Add(tempCat);
-        //        await context.SaveChangesAsync();
-        //    }
-
-        //    var newPostCategory = new PostCategory()
-        //    {
-        //        CategoryId = tempCat.CategoryId,
-        //        PostId = postId
-        //    };
-
-        //    context.PostCategories.Add(newPostCategory);
-        //    await context.SaveChangesAsync();
-
-    }
-
-
-    //public async Task<IEnumerable<Category>> GetCategoriesAsync()
-    //    {
-    //        return await context.Categories.Include(c => c.PostCategories).ThenInclude(r => r.Post).ThenInclude(r => r.Comments).ToListAsync();
-    //    }
-
-    //    public Task<Category> GetPostCategoriesAsync(int postID)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
+    }    
 
 
     //    public async Task<Comment> GetCommentAsync(int commentID)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Final.Data;
@@ -27,14 +28,49 @@ namespace Final.Pages.Channels
             this.dataRepository = dataRepository;
             this.authorizationService = authorizationService;
         }
-        public void OnGet()
+        public async Task OnGet()
         {
             Name = User.Identity.Name;
+            var profileInfo = dbContext.Users.FirstOrDefault(p => p.Name == User.Identity.Name);
+            if(profileInfo!=null)
+            {
+                PathToAvatar = Path.Combine(PictureFolder);
+            }
 
         }
 
         public string Name { get; set; }
         public string PathToAvatar { get; set; }
         public IFormFile File { get; set; }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if(!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            var infoUser = dbContext.Users.FirstOrDefault(p => p.Name == User.Identity.Name); 
+            if(infoUser==null)
+            {
+                infoUser = new Profile() { Name = User.Identity.Name };
+                dbContext.Users.Add(infoUser);
+            }
+
+            var profileName = User.Identity.Name + Path.GetExtension(File.FileName);
+            if(!Directory.Exists(PictureFolder))
+            {
+                Directory.CreateDirectory(PictureFolder);
+            }
+
+            string PathToProfile = Path.Combine("wwwroot", PictureFolder, profileName);
+            using var stream = System.IO.File.OpenWrite(PathToProfile);
+            await File.CopyToAsync(stream);
+            stream.Close();
+            infoUser.Name = profileName;
+            await dbContext.SaveChangesAsync();
+
+            return RedirectToPage();
+        }
     }
 }
