@@ -18,11 +18,11 @@
 </div>
 <div class=" text-left">
     <div class=" text-right">
-        @*@if (Model.IsAdmin)
-        {*@
-            @*<a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>*@
+        @if (Model.IsAdmin)
+        {
+
             <a asp-page="/Channels/AddTopics" asp-route-slug="@Model.Channel.Slug">Add A Topic</a>
-        @*}*@
+        }
     </div>
 
     <h2>Topics: </h2>
@@ -33,5 +33,6 @@
         <a asp-page="TopicDetails" asp-route-slug="@item.Slug"><h3>@Html.DisplayFor(modelItem => item.TopicTitle)</h3></a>
     }
 
-
+    <a asp-page="/Index">Back to List</a>
+    @*<a asp-page="AddTopics" asp-route-channelSlug="@Model.Channel.Slug">Add A Topic</a>*@
 </div>

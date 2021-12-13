@@ -12,8 +12,13 @@
     </div>*@
 
 <h1><center>RUMORS</center></h1>
+@if (Model.IsAdmin)
+{
 
-<center><a asp-page="/Channels/AddChannel">Add a Channel</a></center>
+    <center><a asp-page="/Channels/AddChannel">Add a Channel</a></center>
+}
+
+@*<center><a asp-page="/Channels/AddChannel">Add a Channel</a></center>*@
 
 <table>
     <tbody>
@@ -21,30 +26,30 @@
         @foreach (var item in Model.ChannelList)
         {
 
-        <tr>
-            <td>
-               
+            <tr>
+                <td>
+
                     <h3>
                         <a asp-page="/Channels/Details" asp-route-slug="@item.Slug">@item.Title</a>
-                    </h3>               
+                    </h3>
 
-            </td>
-            <td>
-                @if (Model.IsAdmin)
-                {
-                    <a asp-page="/Channels/Edit" asp-route-slug="@item.Slug">Edit</a>
-                }
+                </td>
+                <td>
+                    @if (Model.IsAdmin)
+                    {
+                        <a asp-page="/Channels/Edit" asp-route-slug="@item.Slug">Edit</a>
+                    }
 
-                @if (Model.IsAdmin)
-                {
-                    <span>|</span>
-                    <a asp-page="/Channels/DeleteChannel" asp-route-slug="@item.Slug">Delete</a>
-                }
-            </td>
-        </tr>
-    }
+                    @if (Model.IsAdmin)
+                    {
 
-        </tbody>
-    </table>
+                        <a asp-page="/Channels/DeleteChannel" asp-route-slug="@item.Slug">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
 
 

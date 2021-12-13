@@ -60,6 +60,7 @@ namespace Final.Pages.Channels
                 return NotFound();
             }
 
+            Post.Slug = Post.Title.GenerateSlug();
             await dataRepository.GetPostAsync(slug);
 
 

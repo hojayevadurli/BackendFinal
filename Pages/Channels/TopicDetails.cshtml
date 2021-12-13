@@ -17,12 +17,13 @@
         @*}*@
     </div>
 
-   
+
 
     @foreach (var item in Model.Topic.Posts)
     {
         <a asp-page="Posts" asp-route-slug="@item.Slug"><h3>@Html.DisplayFor(modelItem => item.Title)</h3></a>
     }
 
+    <a asp-page="Details">Back to List</a>
 
 </div>
