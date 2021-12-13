@@ -20,7 +20,7 @@ namespace Final.Pages.Channels
         private readonly IDataRepository dataRepository;
         private readonly IAuthorizationService authorizationService;
         private readonly ILogger<ProfileModel> logger;
-        public const string PictureFolder = "wwwroot/images/ProfileImages";
+        public const string PictureFolder = "ProfileImages/Images";
 
         public ProfileModel(ApplicationDbContext dbContext, IDataRepository dataRepository, IAuthorizationService authorizationService)
         {
@@ -34,7 +34,7 @@ namespace Final.Pages.Channels
             var profileInfo = dbContext.Users.FirstOrDefault(p => p.Name == slug);
             if(profileInfo!=null)
             {
-                PathToAvatar = Path.Combine(PictureFolder);
+                PathToAvatar = Path.Combine(PictureFolder,profileInfo.ProFileFileName);
             }
 
         }
@@ -68,7 +68,7 @@ namespace Final.Pages.Channels
             await File.CopyToAsync(stream);
             stream.Close();
             infoUser.ProFileFileName= profileName;
-            await dbContext.SaveChangesAsync();
+            dbContext.SaveChanges();
 
             return RedirectToPage();
         }
