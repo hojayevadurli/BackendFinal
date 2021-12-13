@@ -53,7 +53,7 @@ namespace Final
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(convertUrlConnectionString(Configuration["DATABASE_URL"])));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
             services.AddTransient<IDataRepository, DataRepository>();

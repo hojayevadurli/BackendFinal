@@ -12,5 +12,7 @@ namespace Final.Data
         public string Name { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public string Bio { get; set; }
+        public int Score { get; set; }
+        public string Avatar { get; set; }
     }
 }
