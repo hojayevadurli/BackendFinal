@@ -20,7 +20,7 @@ namespace Final.Pages.Channels
         private readonly IDataRepository dataRepository;
         private readonly IAuthorizationService authorizationService;
         private readonly ILogger<ProfileModel> logger;
-        public const string PictureFolder = "Pages/ProfileImages";
+        public const string PictureFolder = "wwwroot/images/ProfileImages";
 
         public ProfileModel(ApplicationDbContext dbContext, IDataRepository dataRepository, IAuthorizationService authorizationService)
         {
@@ -67,7 +67,7 @@ namespace Final.Pages.Channels
             using var stream = System.IO.File.OpenWrite(PathToProfile);
             await File.CopyToAsync(stream);
             stream.Close();
-            infoUser.Name = profileName;
+            infoUser.ProFileFileName= profileName;
             await dbContext.SaveChangesAsync();
 
             return RedirectToPage();

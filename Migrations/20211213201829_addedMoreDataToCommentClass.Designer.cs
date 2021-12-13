@@ -3,15 +3,17 @@ using System;
 using Final.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Final.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211213201829_addedMoreDataToCommentClass")]
+    partial class addedMoreDataToCommentClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,9 +59,6 @@ namespace Final.Migrations
 
                     b.Property<int?>("CommentId")
                         .HasColumnType("integer");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("boolean");
 
                     b.Property<int?>("PostId")
                         .HasColumnType("integer");

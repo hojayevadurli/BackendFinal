@@ -50,7 +50,7 @@ namespace Final.Pages.Channels
             return Page();
         }
 
-        public async Task<IActionResult> OnPostDeletePost(string slug)
+        public async Task<IActionResult> OnPostDeletePost(string slug, string Topicslug)
         {
             if (slug == null)
             {
@@ -71,7 +71,7 @@ namespace Final.Pages.Channels
             }
 
             logger.LogInformation("Post deleted by: {adminName} {Post} ", User.Identity.Name, Post.Title);
-            return RedirectToPage("TopicDetails", new { slug = slug });
+            return RedirectToPage("TopicDetails", new { slug = Topicslug });
         }
     }
 }

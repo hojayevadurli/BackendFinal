@@ -5,6 +5,7 @@
 <div class="col-md-6 col-sm-12 mx-auto mb-5">
     <form method="post" asp-page-handler="DeletePost">
         <input type="hidden" value="@Model.Post.Slug" name="slug" />
+        <input type="hidden" value="@Model.Post.Topic.Slug" name="Topicslug" />
         <div class="text-md-left">
             <h2 class="display-4">@Html.DisplayFor(modelItem => Model.Post.Title)</h2>
         </div>
@@ -25,13 +26,13 @@
             <label asp-for="Post.LastEditedOn" class="control-label"></label>
             <h4> @Html.DisplayFor(modelItem => Model.Post.LastEditedOn)</h4>
         </div>
-            <div class="row">
-                <div class="col-sm-4 text-sm-end align-self-center">
-                </div>
-                <div class="col-8">
-                    <button type="submit" class="btn btn-outline-primary">Do the thing!</button>
-                </div>
+        <div class="row">
+            <div class="col-sm-4 text-sm-end align-self-center">
             </div>
+            <div class="col-8">
+                <button type="submit" class="btn btn-outline-primary">Do the thing!</button>
+            </div>
+        </div>
 
     </form>
 </div>

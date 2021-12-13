@@ -136,11 +136,9 @@ namespace Final.Data
 
         public async Task<Post> GetPostAsync(string slug)
         {
-            //var postlist = await EntityFrameworkQueryableExtensions.ToListAsync(context.Posts);
-            //return postlist.Find(x=>x.ID.Equals(postID));
+            
             return await context.Posts.Include(r => r.Comments)
-                //.Include(p => p.PostCategories)
-                //.ThenInclude(pc => pc.Category)
+                .Include(p=>p.Topic)
                 .FirstOrDefaultAsync(r => r.Slug == slug);
         }
 
@@ -164,13 +162,13 @@ namespace Final.Data
             await context.SaveChangesAsync();
         }
 
-        //public async Task DeleteCommentAsync(Comment comment)
-        //{
-        //    comment.Deleted = true;
-        //    comment.DeletedOn = DateTime.Now;
-        //    context.Update(comment);
-        //    await context.SaveChangesAsync();
-        //}
+        public async Task DeleteCommentAsync(Comment comment)
+        {
+            comment.Deleted = true;
+            //comment.DeletedOn = DateTime.Now;
+            context.Update(comment);
+            await context.SaveChangesAsync();
+        }
 
     }    
 

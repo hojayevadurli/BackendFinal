@@ -14,5 +14,6 @@ namespace Final.Data
         public string Bio { get; set; }
         public int Score { get; set; }
         public string Avatar { get; set; }
+        public string ProFileFileName { get; set; }
     }
 }

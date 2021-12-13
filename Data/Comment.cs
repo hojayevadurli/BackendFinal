@@ -20,8 +20,9 @@ namespace Final.Data
         public Post Post { get; set; }
         public int? PostId{ get; set; }
         public int? CommentId { get; set; }
+        public bool Deleted { get; set; } = false;
 
-        public List<Comment> ChildComments { get; set; }
+        public List<Comment> ChildComments { get; set; } = new();
 
 
     }
