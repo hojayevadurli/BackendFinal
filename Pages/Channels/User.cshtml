@@ -18,17 +18,32 @@
             <span class=" form-text" asp-validation-for="File"></span>
             <input type="hidden" name="UserName" value="@Model.currUser" />
         </div>
+
     </div>
     <div class="row">
         <div class=" col-1">
             <input class=" btn btn-dark" type="submit" value="Upload Your Profile Picture" />
         </div>
-    </div>
+    </div>    
 
 </form>
 
 <div class="mt-5" row>
     <img src="@Model.PathToAvatar" width="200" />
+</div>
+
+<div class="mb-3 row">
+    <div class="col-sm-4 text-sm-end align-self-center">
+        <input type="hidden" value="@Model.newUser.Bio" name="UserBio" />
+        <label class="form-label" asp-for="newUser.Bio"></label>
+    </div>
+    <div class="col">
+        <input class="form-control" asp-for="newUser.Bio" />
+        <span class="form-text" asp-validation-for="newUser.Bio"></span>
+    </div>
+    <div class="col-8">
+        <button type="submit" class="btn btn-outline-primary">Add a bio!</button>
+    </div>
 </div>
 <div class="text-center">
     <h1>

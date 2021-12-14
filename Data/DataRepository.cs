@@ -118,14 +118,14 @@ namespace Final.Data
             p.Title = post.Title;
             p.Body = post.Body;
             p.Description = post.Description;
-            
+            p.Slug = post.Slug;
             context.Posts.Attach(p).State = EntityState.Modified;
             context.Posts.Update(p);
 
             try
             {
-                await context.SaveChangesAsync();
             p.LastEditedOn = DateTime.Now;
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {

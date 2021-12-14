@@ -15,7 +15,7 @@ namespace Final.Controller
     public class User : ControllerBase
     {
         private readonly ApplicationDbContext context;
-        public Profile Author { get; set; }
+     
 
         public User(ApplicationDbContext context)
         {
@@ -23,10 +23,10 @@ namespace Final.Controller
         }
 
         [HttpGet("{id}", Name ="Get")]
-        public async Task<string>GetAsync(int id)
+        public async Task<Profile> GetAsync(int id)
         {
-            Author = await context.Users.FirstOrDefaultAsync(m => m.Id == id);
-            return JsonSerializer.Serialize(Author);
+            return await context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            
         }
     }
 }

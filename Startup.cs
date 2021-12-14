@@ -57,6 +57,7 @@ namespace Final
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
+            services.AddControllers();
             services.AddTransient<IDataRepository, DataRepository>();
             services.AddTransient<IUserService, Service>();
             services.AddAuthorization(options =>
@@ -92,6 +93,7 @@ namespace Final
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
