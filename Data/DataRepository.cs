@@ -120,6 +120,7 @@ namespace Final.Data
             p.Description = post.Description;
             
             context.Posts.Attach(p).State = EntityState.Modified;
+            context.Posts.Update(p);
 
             try
             {
