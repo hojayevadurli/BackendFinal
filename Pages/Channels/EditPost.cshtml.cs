@@ -31,18 +31,20 @@ namespace Final.Pages.Channels
 
         [BindProperty]
         public Post Post { get; set; }
+        public Topic Topic { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string slug)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (slug == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            Post = await dataRepository.GetPostAsync(slug);
-            //Post = await _context.Posts
-            //    .Include(p => p.Topic).FirstOrDefaultAsync(m => m.Id == id);
-
+            //Post = await dataRepository.GetPostAsync(id);
+            Post = await dbContext.Posts
+                .Include(p => p.Topic).FirstOrDefaultAsync(m => m.Id == id);
+            //Topic = await dbContext.Topics
+            //   .Include(p => p.Topic).FirstOrDefaultAsync(m => m.Id == id);
             if (Post == null)
             {
                 return NotFound();
@@ -53,27 +55,29 @@ namespace Final.Pages.Channels
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(string slug)
-        {
-            if (slug==null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> OnPostAsync()
+        //{            
+            
+        //    Post.Slug = Post.Title.GenerateSlug();
+        //    if(!ModelState.IsValid)
+        //    {
+        //        return Page();
+        //    }
+        //    // await dataRepository.GetPostAsync(slug);
+        //    dbContext.Attach(Post).State = EntityState.Modified;
 
-            Post.Slug = Post.Title.GenerateSlug();
-            await dataRepository.GetPostAsync(slug);
+        //    //if (Post != null)
+        //    //{
 
-
-            if (Post != null)
-            {
-
-                await dataRepository.EditPostAsync(slug, Post);
+        //    //    await dataRepository.EditPostAsync(slug, Post);
                 
-            }
+        //    //}
 
-            logger.LogInformation("Post edited by: {adminName} {Post} ", User.Identity.Name, Post.Title);
-            return RedirectToPage("Posts", new { slug = slug });
-        }
+        //    //try 
+
+        //    //logger.LogInformation("Post edited by: {adminName} {Post} ", User.Identity.Name, Post.Title);
+        //    //return RedirectToPage("Posts", new { slug = slug });
+        //}
 
         
     }

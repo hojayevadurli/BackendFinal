@@ -1,4 +1,5 @@
 using Final.Data;
+using Final.Pages.Channels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -57,6 +58,7 @@ namespace Final
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
             services.AddTransient<IDataRepository, DataRepository>();
+            services.AddTransient<IUserService, Service>();
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("IsAdmin", policyBuilder =>

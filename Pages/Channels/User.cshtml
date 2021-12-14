@@ -1,0 +1,60 @@
+﻿@page "{UserName}"
+@model Final.Pages.Channels.UserModel
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+}
+
+<h1>Welcome to our channel @User.Identity.Name</h1>
+<form enctype="multipart/form-data" method="post" style="border:dashed;border-color:black">
+    <div class="mb-3 p-2 row">
+        <div class=" col-auto text-sm-center">
+            <label class=" col-form-label" asp-for="File">Upload profile picture</label>
+        </div>
+        <div class="col-1">
+            <input class=" form-control-file" asp-for="File" type="file" />
+            <span class=" form-text" asp-validation-for="File"></span>
+            <input type="hidden" name="UserName" value="@Model.currUser" />
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-1">
+            <input class=" btn btn-dark" type="submit" value="Upload Your Profile Picture" />
+        </div>
+    </div>
+</form>
+
+<div class="mt-5" row>
+    <img src="@Model.PathToAvatar" width="100" />
+</div>
+<div class="text-center">
+    <h1>
+        @Model.newUser.Bio
+    </h1>
+</div>
+
+@foreach (var comments in Model.userPosts)
+{
+    if (comments.Author != Model.newUser.Name)
+    {
+        <h3> Commented On on this Post:@comments.Title</h3>
+    }
+    else
+    {
+        <h3>Author of Post: @comments.Title, made his comments</h3>
+    }
+    @foreach (var child in Model.userComments)
+    {
+        if (child.Id == comments.Id)
+        {
+            <ul>
+                <li>
+                    @child.Text
+                </li>
+            </ul>
+        }
+    }
+
+}

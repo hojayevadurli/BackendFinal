@@ -4,6 +4,16 @@
 }
 
 <h1>Post</h1>
+@if (Model.IsAdmin)
+{
+    <a asp-page="/Channels/DeletePost" asp-route-slug="@Model.Post.Slug">DeletePost</a>
+}
+
+@if (Model.IsAdmin)
+{
+    <a asp-page="/Channels/EditPost" asp-route-slug="@Model.Post.Slug">EditPost</a>
+
+}
 
 <div class="text-md-left">
     <h2 class="display-4">@Html.DisplayFor(modelItem => Model.Post.Title)</h2>
@@ -39,27 +49,18 @@
         <partial name="AddCommentPartial" model="Model.AddCommentModel" />
 
 
-        @if (Model.IsAdmin)
-        {
-            <a asp-page="/Channels/DeletePost" asp-route-slug="@Model.Post.Slug">DeletePost</a>
-        }
 
-        @if (Model.IsAdmin)
-        {
-            <a asp-page="/Channels/EditPost" asp-route-slug="@Model.Post.Slug">EditPost</a>
 
-        }
 
-       
     </div>
 
     @*<h2>Topics: </h2>
 
 
-    @foreach (var item in Model.Post.Comments)
-    {
-        <a asp-page="Posts" asp-route-slug="@item.Slug"><h3>@Html.DisplayFor(modelItem => item.Title)</h3></a>
-    }*@
+        @foreach (var item in Model.Post.Comments)
+        {
+            <a asp-page="Posts" asp-route-slug="@item.Slug"><h3>@Html.DisplayFor(modelItem => item.Title)</h3></a>
+        }*@
 
 
 </div>
