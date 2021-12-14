@@ -22,7 +22,7 @@ namespace Final.Pages.Channels
         private readonly IAuthorizationService authorizationService;
         private readonly ILogger<UserModel> logger;
         private readonly IUserService userService;
-         string Path1 = "./ProfileImages/Images";
+         string Path1 = "/ProfileImages/Images";
         public UserModel(ApplicationDbContext dbContext, IDataRepository dataRepository, IAuthorizationService authorizationService, IUserService userService)
         {
             this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));

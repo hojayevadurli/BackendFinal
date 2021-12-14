@@ -1,10 +1,10 @@
-﻿@page "/Channels/EditPost/{slug}"
+﻿@page "/Channels/EditPost"
 @model Final.Pages.Channels.EditPostModel
 
 
 <div class="col-md-6 col-sm-12 mx-auto mb-5">
     <form method="post" asp-page-handler="EditPost">
-        <input type="hidden" value="@Model.Post.Slug" name="slug" />
+        <input type="hidden" value="@Model.Post.Id" name="id" />
         <div class="mb-3 row">
             <div class="col-sm-4 text-sm-end align-self-center">
                 <label class="form-label" asp-for="Post.Title"></label>

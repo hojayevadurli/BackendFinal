@@ -18,7 +18,7 @@ namespace Final.Data
             this.dbContext = dbContext;
         }
 
-        public const string PictureFolder = "./ProfileImages/Images";
+        public const string PictureFolder = "/ProfileImages/Images";
 
         public async Task<Profile> GetProfileAsync(string UserName)
         {
