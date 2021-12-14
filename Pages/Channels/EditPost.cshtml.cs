@@ -33,18 +33,17 @@ namespace Final.Pages.Channels
         public Post Post { get; set; }
         public Topic Topic { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string slug)
         {
-            if (id == null)
+            if (slug == null)
             {
                 return NotFound();
             }
 
-            //Post = await dataRepository.GetPostAsync(id);
-            Post = await dbContext.Posts
-                .Include(p => p.Topic).FirstOrDefaultAsync(m => m.Id == id);
-            //Topic = await dbContext.Topics
-            //   .Include(p => p.Topic).FirstOrDefaultAsync(m => m.Id == id);
+            Post = await dataRepository.GetPostAsync(slug);
+            //Post = await _context.Posts
+            //    .Include(p => p.Topic).FirstOrDefaultAsync(m => m.Id == id);
+
             if (Post == null)
             {
                 return NotFound();
@@ -53,58 +52,29 @@ namespace Final.Pages.Channels
             return Page();
         }
 
-        //To protect from overposting attacks, enable the specific properties you want to bind to.
-        //For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see https://aka.ms/RazorPagesCRUD.
+        public async Task<IActionResult> OnPostAsync(string slug)
         {
-
-            Post.Slug = Post.Title.GenerateSlug();
-            if (!ModelState.IsValid)
+            if (slug == null)
             {
-                return Page();
+                return NotFound();
             }
-           // await dataRepository.GetPostAsync(slug);
-            dbContext.Attach(Post).State = EntityState.Modified;
 
-            try
+            await dataRepository.GetPostAsync(slug);
+
+
+            if (Post != null)
             {
-                await dbContext.SaveChangesAsync();
+
+                await dataRepository.EditPostAsync(slug, Post);
+
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BlogPostExists(Post.Id))
-                    {
-                    return NotFound();
-                    }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToPage("/Posts");
-            //if (Post != null)
-            //{
 
-            //    await dataRepository.EditPostAsync(slug, Post);
-
-            //}
-
-            //try
-            //{ 
-            //   logger.LogInformation("Post edited by: {adminName} {Post} ", User.Identity.Name, Post.Title);
-            //    return RedirectToPage("Posts", new { slug = slug });
-            //}
-
-
+            logger.LogInformation("Post edited by: {adminName} {Post} ", User.Identity.Name, Post.Title);
+            return RedirectToPage("Posts", new { slug = slug });
         }
-        private bool BlogPostExists(int id)
-        {
-            return dbContext.Posts.Any(e => e.Id == id);
-        }
+
 
     }
-
-
-
-
 }

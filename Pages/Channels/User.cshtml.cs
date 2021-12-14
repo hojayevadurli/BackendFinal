@@ -36,6 +36,7 @@ namespace Final.Pages.Channels
         public string PathToAvatar { get; set; }
         [BindProperty]
         public IFormFile File { get; set; }
+
         public Profile newUser { get; set; }
         public string currUser { get; set; }
 

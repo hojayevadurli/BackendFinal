@@ -18,7 +18,7 @@ namespace Final.Data
             this.dbContext = dbContext;
         }
 
-        public const string PictureFolder = "/ProfileImages/Images";
+        public const string PictureFolder = "./ProfileImages/Images";
 
         public async Task<Profile> GetProfileAsync(string UserName)
         {
@@ -35,7 +35,7 @@ namespace Final.Data
 
         public async Task SaveAvatarAsync(IFormFile formFile, string UserName)
         {
-            var profileInfo = await dbContext.Users.FirstOrDefaultAsync(p => p.Name == UserName);
+            var profileInfo = await GetProfileAsync(UserName);
             var profileName = UserName + Path.GetExtension(formFile.FileName);
             if (!Directory.Exists(PictureFolder))
             {
